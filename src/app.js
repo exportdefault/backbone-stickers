@@ -28,6 +28,7 @@ class TaskModel extends Model {
 
   validate(attr) {
     console.log('validate: ' + JSON.stringify(attr));
+    return false;
   }
 }
 
@@ -68,7 +69,7 @@ class TaskView extends View {
 
   editTask(model) {
     var newTitle = prompt('you try change task', this.model.get('title'));
-    this.model.set('title', newTitle)
+    this.model.set('title', newTitle, {validate: true});
   }
 
   deleteTask(model) {
