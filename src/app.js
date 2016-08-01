@@ -1,5 +1,17 @@
+import MyRouter from './router';
+
 const { Model, View, Collection, Router } = Backbone;
 
+class Application {
+  constructor () {
+    new MyRouter();
+    Backbone.history.start();
+  }
+}
+
+$(() => {
+  new Application();
+});
 
 
 class TaskModel extends Model {
@@ -36,7 +48,10 @@ class TaskView extends View {
   }
 
   initialize() {
-    //this.listenTo(this.model, 'change', this.render);
+    this.listenTo(this.model, 'change', this.render);
+    this.listenTo(this.model, 'destroy', this.remove);
+
+    //this.model.on('change', this.render, this);
   }
 
   render() {
@@ -47,20 +62,22 @@ class TaskView extends View {
   events() {
     return {
       'click .edit': 'editTask',
-      //'click span': 'onClickSpan'
+      'click .delete': 'deleteTask'
     }
   }
 
   editTask(model) {
     var newTitle = prompt('you try change task', this.model.get('title'));
     this.model.set('title', newTitle)
-
-    //var newTaskTitle = prompt('Write new title')
   }
 
-  onClick(event) {
-    console.log('click');
-    console.log(event.target);
+  deleteTask(model) {
+    this.model.destroy();
+    console.log(tasks);
+  }
+
+  remove(event) {
+    this.$el.remove();
   }
 
 }
@@ -88,6 +105,9 @@ class TasksView extends View {
   }
 
   initialize() {
+    //this.collection.on('add',)
+
+    this.listenTo(this.collection, 'add', this.addOne);
     console.log(this.collection);
   }
 
@@ -120,6 +140,50 @@ class TasksView extends View {
 
 // -----------------------------------
 
+
+class AddTaskView extends View {
+  
+
+  get el() {
+    return '#add-task';
+  }
+
+  constructor(options) {
+    super(options);
+
+    //this.el = '#add-task';
+  }
+
+  initialize() {
+    //console.log(this.$el.html());
+  }
+
+  events() {
+    return {
+      'submit': 'submit'
+    }
+  }
+
+  submit(e) {
+    e.preventDefault();
+    // console.log('form send');
+
+    var newTaskTitle = $(e.currentTarget).find('input[type=text]').val();
+    // console.log(newTaskTitle);
+    // return false;
+
+    var newTask = new TaskModel({title: newTaskTitle});
+    this.collection.add(newTask);
+  }
+}
+
+
+
+
+
+
+// -----------------------------------
+
 var tasks = new TaskCollection([
   {
     title: 'Go to shop',
@@ -138,5 +202,7 @@ var tasks = new TaskCollection([
 var tasksView = new TasksView({collection: tasks});
 
 $('#todos').html(tasksView.render().el);
+
+var addTaskView = new AddTaskView({collection: tasks});
 
 //console.log(taskView.render().el);

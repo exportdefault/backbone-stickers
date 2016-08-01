@@ -9,9 +9,26 @@
   <h1>Todo Backbone</h1>
   <div id="todos"></div>
 
+
+  <form action="" id="add-task">
+    <input type="text" placeholder="Your new task" />
+    <input type="submit" value="Add task" />
+  </form>
+  <hr>
+  <div id="app"></div>
+
   <script type="text/template" id="task-template">
   <%= title %> <span>(<%= sort %>)</span>
   <button class="edit">Edit</button> <button class="delete">Delete</button>
+  </script>
+
+  <script type="text/template" name="home">
+    <h1>Home</h1>
+    <a href="#about">Go to "About"</a>
+  </script>
+  <script type="text/template" name="about">
+    <h1>About</h1>
+    <a href="#">Go to back to "Home"</a>
   </script>
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -22,14 +39,5 @@
 </html>
 
 
-  <!--script type="text/template" name="home">
-    <h1>Home</h1>
-    <a href="#about">Go to "About"</a>
-  </script>
 
-  <script type="text/template" name="about">
-    <h1>About</h1>
-    <a href="#">Go to back to "Home"</a>
-  </script>
-
-  <script type="text/template" id="person-id"><%= name %> ( <%= age %> ) - <%= job %></script-->
+  <!--script type="text/template" id="person-id"><%= name %> ( <%= age %> ) - <%= job %></script-->
