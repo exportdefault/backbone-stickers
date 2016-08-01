@@ -1,0 +1,22 @@
+{
+  "name": "backbone-es6-demo",
+  "version": "1.0.0",
+  "authors": [
+    "Alexander Morgunov"
+  ],
+  "description": "An example of using ES6 Modules and classes with Backbone + Babel/Browserify",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "backbone": "~1.3.3",
+    "underscore": "~1.8.3",
+    "jquery": "~3.1.0"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "backbone-es6-demo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compile": "babel src --presets es2015 --out-dir=dist && browserify dist/app.js > dist/bundle.js"
+  },
+  "author": "Alexander Morgunov",
+  "license": "ISC",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.11.4",
+    "babel-preset-es2015": "^6.9.0",
+    "browserify": "^13.1.0"
+  }
+}
