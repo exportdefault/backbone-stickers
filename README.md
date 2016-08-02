@@ -2,6 +2,10 @@
 
 A small demo project that shows how to use webpack + backbone for client-side development in ES6.
 
+## Description
+
+This project is written in ES6-code with the using backbone. You can show tasks (todo) list, add/remove/edit task. All data store in localStorage. Additionally, for shows `Backbone.Router` working added some views.
+
 ## Installation
 
 * Install  [nodejs](https://nodejs.org)
@@ -16,6 +20,16 @@ bower intall
 
 ## Usage
 
-* `npm run start` to start Webpack in watch mode - will recompile when you change a file.
-* Open `index.html` in a browser. 
-* You can change or add files in `src` folder. `app.js` is the entry point. Reload the browser when you have made a change.
+
+* Build once and after open `index.html` in a web browser:
+```
+npm run build
+```
+* If you want that *watch files* continuously, rebuild incrementally whenever one of them changes, then open `index.html` in a web browser, manually reload page whenever there was a change.
+```
+npm run watch
+```
+* If you want hot reloading via the webpack development server, then go to `http://localhost:8080/` (The page reloads automatically when there are changes).
+```
+npm start
+```
