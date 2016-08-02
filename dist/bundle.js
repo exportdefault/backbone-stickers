@@ -1,41 +1,41 @@
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -45,70 +45,147 @@
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
+	
+	var _views = __webpack_require__(2);
+	
+	var _collection = __webpack_require__(4);
+	
+	var _collection2 = _interopRequireDefault(_collection);
+	
 	var _router = __webpack_require__(1);
-
+	
 	var _router2 = _interopRequireDefault(_router);
-
+	
+	var _model = __webpack_require__(3);
+	
+	var _model2 = _interopRequireDefault(_model);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	var _Backbone = Backbone;
-	var Model = _Backbone.Model;
-	var View = _Backbone.View;
-	var Collection = _Backbone.Collection;
-	var Router = _Backbone.Router;
-
-	var Application = function Application() {
-	  _classCallCheck(this, Application);
-
-	  new _router2.default();
-	  Backbone.history.start();
-	};
-
+	
+	var Application = function () {
+	  function Application() {
+	    _classCallCheck(this, Application);
+	
+	    this.init();
+	  }
+	
+	  _createClass(Application, [{
+	    key: 'init',
+	    value: function init() {
+	
+	      new _router2.default();
+	      Backbone.history.start();
+	
+	      var titles = ['Go to shop', 'Get postcard', 'Go to work'];
+	
+	      var tasks = new _collection2.default(titles.map(function (title) {
+	        return { title: title };
+	      }));
+	
+	      var view = new _views.TasksView({ collection: tasks });
+	      $('#todos').html(view.render().el);
+	
+	      new _views.AddTaskView({ collection: tasks });
+	    }
+	  }]);
+	
+	  return Application;
+	}();
+	
 	$(function () {
 	  new Application();
 	});
 
-	var TaskModel = function (_Model) {
-	  _inherits(TaskModel, _Model);
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
 
-	  function TaskModel(params) {
-	    _classCallCheck(this, TaskModel);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TaskModel).call(this, params));
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _views = __webpack_require__(2);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Router = function (_Backbone$Router) {
+	  _inherits(Router, _Backbone$Router);
+	
+	  function Router() {
+	    _classCallCheck(this, Router);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Router).call(this, {
+	      routes: {
+	        '': 'home',
+	        'about': 'about'
+	      }
+	    }));
 	  }
-
-	  _createClass(TaskModel, [{
-	    key: 'defaults',
-	    value: function defaults() {
-	      return {
-	        title: 'unnamed',
-	        sort: 10
-	      };
+	
+	  _createClass(Router, [{
+	    key: 'home',
+	    value: function home() {
+	      console.log('Route#home was called!');
+	      var view = new _views.HomeView();
+	      $('#app').html(view.render().$el);
 	    }
 	  }, {
-	    key: 'validate',
-	    value: function validate(attr) {
-	      console.log('validate: ' + JSON.stringify(attr));
+	    key: 'about',
+	    value: function about() {
+	      console.log('Route#about was called!');
+	      var view = new _views.AboutView();
+	      $('#app').html(view.render().$el);
 	    }
 	  }]);
+	
+	  return Router;
+	}(Backbone.Router);
+	
+	exports.default = Router;
 
-	  return TaskModel;
-	}(Model);
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
 
-	// -----------------------------------
-
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.TasksView = exports.TaskView = exports.AddTaskView = exports.AboutView = exports.HomeView = undefined;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _collection = __webpack_require__(4);
+	
+	var _collection2 = _interopRequireDefault(_collection);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _Backbone = Backbone;
+	var View = _Backbone.View;
+	
 	var TaskView = function (_View) {
 	  _inherits(TaskView, _View);
-
+	
 	  _createClass(TaskView, [{
 	    key: 'tagName',
 	    get: function get() {
@@ -120,19 +197,19 @@
 	      return _.template($('#task-template').html());
 	    }
 	  }]);
-
+	
 	  function TaskView(options) {
 	    _classCallCheck(this, TaskView);
-
+	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TaskView).call(this, options));
 	  }
-
+	
 	  _createClass(TaskView, [{
 	    key: 'initialize',
 	    value: function initialize() {
 	      this.listenTo(this.model, 'change', this.render);
 	      this.listenTo(this.model, 'destroy', this.remove);
-
+	
 	      //this.model.on('change', this.render, this);
 	    }
 	  }, {
@@ -153,13 +230,12 @@
 	    key: 'editTask',
 	    value: function editTask(model) {
 	      var newTitle = prompt('you try change task', this.model.get('title'));
-	      this.model.set('title', newTitle);
+	      this.model.set('title', newTitle, { validate: true });
 	    }
 	  }, {
 	    key: 'deleteTask',
 	    value: function deleteTask(model) {
 	      this.model.destroy();
-	      console.log(tasks);
 	    }
 	  }, {
 	    key: 'remove',
@@ -167,102 +243,28 @@
 	      this.$el.remove();
 	    }
 	  }]);
-
+	
 	  return TaskView;
 	}(View);
-
-	// -----------------------------------
-
-	var TaskCollection = function (_Collection) {
-	  _inherits(TaskCollection, _Collection);
-
-	  function TaskCollection(options) {
-	    _classCallCheck(this, TaskCollection);
-
-	    var _this3 = _possibleConstructorReturn(this, Object.getPrototypeOf(TaskCollection).call(this, options));
-
-	    _this3.model = TaskModel;
-	    return _this3;
-	  }
-
-	  return TaskCollection;
-	}(Collection);
-
-	// -----------------------------------
-
-	var TasksView = function (_View2) {
-	  _inherits(TasksView, _View2);
-
-	  function TasksView(options) {
-	    _classCallCheck(this, TasksView);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TasksView).call(this, options));
-	  }
-
-	  _createClass(TasksView, [{
-	    key: 'initialize',
-	    value: function initialize() {
-	      //this.collection.on('add',)
-
-	      this.listenTo(this.collection, 'add', this.addOne);
-	      console.log(this.collection);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      // 1. loop from list
-	      // 2. render tempalte for each item 
-	      // 3. insert in main template (ul, this.$el)
-
-	      this.collection.each(this.addOne, this);
-
-	      /*(person) => {
-	        console.log('each person: ' + JSON.stringify(person.toJSON()));
-	        var personView = new PersonView({model: person});
-	        this.$el.append(personView.render().el);
-	      });*/
-
-	      return this;
-	    }
-	  }, {
-	    key: 'addOne',
-	    value: function addOne(task) {
-	      // create new TaskView instance and add it in root element (ul)
-
-	      var taskView = new TaskView({ model: task });
-	      this.$el.append(taskView.render().el);
-	    }
-	  }, {
-	    key: 'tagName',
-	    get: function get() {
-	      return 'ul';
-	    }
-	  }]);
-
-	  return TasksView;
-	}(View);
-
-	// -----------------------------------
-
-
-	var AddTaskView = function (_View3) {
-	  _inherits(AddTaskView, _View3);
-
+	
+	var AddTaskView = function (_View2) {
+	  _inherits(AddTaskView, _View2);
+	
 	  _createClass(AddTaskView, [{
 	    key: 'el',
 	    get: function get() {
 	      return '#add-task';
 	    }
 	  }]);
-
+	
 	  function AddTaskView(options) {
 	    _classCallCheck(this, AddTaskView);
-
+	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AddTaskView).call(this, options));
-
+	
 	    //this.el = '#add-task';
 	  }
-
+	
 	  _createClass(AddTaskView, [{
 	    key: 'initialize',
 	    value: function initialize() {
@@ -279,123 +281,90 @@
 	    key: 'submit',
 	    value: function submit(e) {
 	      e.preventDefault();
-	      // console.log('form send');
-
-	      var newTaskTitle = $(e.currentTarget).find('input[type=text]').val();
-	      // console.log(newTaskTitle);
-	      // return false;
-
-	      var newTask = new TaskModel({ title: newTaskTitle });
-	      this.collection.add(newTask);
+	
+	      var $input = $(e.currentTarget).find('input[type=text]');
+	
+	      var newTaskTitle = $input.val();
+	      var newTask = new this.collection.model({ title: newTaskTitle }, { validate: true });
+	
+	      if (!newTask.validationError) {
+	        this.collection.add(newTask);
+	        $input.val('');
+	      }
 	    }
 	  }]);
-
+	
 	  return AddTaskView;
 	}(View);
-
-	// -----------------------------------
-
-	var tasks = new TaskCollection([{
-	  title: 'Go to shop',
-	  sort: 4
-	}, {
-	  title: 'Get postcard',
-	  sort: 3
-	}, {
-	  title: 'Go to work',
-	  sort: 5
-	}]);
-
-	var tasksView = new TasksView({ collection: tasks });
-
-	$('#todos').html(tasksView.render().el);
-
-	var addTaskView = new AddTaskView({ collection: tasks });
-
-	//console.log(taskView.render().el);
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _views = __webpack_require__(2);
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Router = function (_Backbone$Router) {
-	  _inherits(Router, _Backbone$Router);
-
-	  function Router() {
-	    _classCallCheck(this, Router);
-
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Router).call(this, {
-	      routes: {
-	        '': 'home',
-	        'about': 'about'
-	      }
-	    }));
+	
+	var TasksView = function (_View3) {
+	  _inherits(TasksView, _View3);
+	
+	  function TasksView(options) {
+	    _classCallCheck(this, TasksView);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TasksView).call(this, options));
 	  }
-
-	  _createClass(Router, [{
-	    key: 'home',
-	    value: function home() {
-	      console.log('Route#home was called!');
-	      var view = new _views.HomeView();
-	      $('#app').html(view.render().$el);
+	
+	  _createClass(TasksView, [{
+	    key: 'initialize',
+	    value: function initialize() {
+	      //this.collection.on('add',)
+	
+	      this.listenTo(this.collection, 'add', this.addOne);
+	      console.log(this.collection);
 	    }
 	  }, {
-	    key: 'about',
-	    value: function about() {
-	      console.log('Route#about was called!');
-	      var view = new _views.AboutView();
-	      $('#app').html(view.render().$el);
+	    key: 'render',
+	    value: function render() {
+	      var _this4 = this;
+	
+	      // 1. loop from list
+	      // 2. render tempalte for each item 
+	      // 3. insert in main template (ul, this.$el)
+	
+	      /*this.collection.each(function(task){
+	        this.addOne(task);
+	         //console.log(arguments);
+	        //this.addOne, this
+	      });*/
+	
+	      this.collection.each(function (task) {
+	        return _this4.addOne(task);
+	      });
+	
+	      return this;
+	    }
+	  }, {
+	    key: 'addOne',
+	    value: function addOne(task) {
+	      // create new TaskView instance and add it in root element (ul)
+	      //console.log(task);
+	
+	      var taskView = new TaskView({ model: task });
+	      this.$el.append(taskView.render().el);
+	    }
+	  }, {
+	    key: 'tagName',
+	    get: function get() {
+	      return 'ul';
 	    }
 	  }]);
-
-	  return Router;
-	}(Backbone.Router);
-
-	exports.default = Router;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
+	
+	  return TasksView;
+	}(View);
+	
+	// ----------------------------------------------------------------------
+	
 	var HomeView = function (_Backbone$View) {
 	  _inherits(HomeView, _Backbone$View);
-
+	
 	  function HomeView() {
 	    _classCallCheck(this, HomeView);
-
+	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(HomeView).apply(this, arguments));
 	  }
-
+	
 	  _createClass(HomeView, [{
 	    key: 'initialize',
 	    value: function initialize() {
@@ -408,19 +377,19 @@
 	      return this;
 	    }
 	  }]);
-
+	
 	  return HomeView;
 	}(Backbone.View);
-
+	
 	var AboutView = function (_Backbone$View2) {
 	  _inherits(AboutView, _Backbone$View2);
-
+	
 	  function AboutView() {
 	    _classCallCheck(this, AboutView);
-
+	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(AboutView).apply(this, arguments));
 	  }
-
+	
 	  _createClass(AboutView, [{
 	    key: 'initialize',
 	    value: function initialize() {
@@ -433,12 +402,130 @@
 	      return this;
 	    }
 	  }]);
-
+	
 	  return AboutView;
 	}(Backbone.View);
-
+	
 	exports.HomeView = HomeView;
 	exports.AboutView = AboutView;
+	exports.AddTaskView = AddTaskView;
+	exports.TaskView = TaskView;
+	exports.TasksView = TasksView;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _Backbone = Backbone;
+	var Model = _Backbone.Model;
+	
+	var TaskModel = function (_Model) {
+	  _inherits(TaskModel, _Model);
+	
+	  function TaskModel() {
+	    var _Object$getPrototypeO;
+	
+	    _classCallCheck(this, TaskModel);
+	
+	    for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	      args[_key] = arguments[_key];
+	    }
+	
+	    return _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(TaskModel)).call.apply(_Object$getPrototypeO, [this].concat(args)));
+	  }
+	
+	  _createClass(TaskModel, [{
+	    key: 'defaults',
+	    value: function defaults() {
+	      return {
+	        title: 'unnamed',
+	        sort: 10
+	      };
+	    }
+	  }, {
+	    key: 'validate',
+	    value: function validate(attr) {
+	      if (typeof attr.title === 'undefined' || !$.trim(attr.title)) {
+	        return "Remember to set a title for your todo.";
+	      }
+	    }
+	  }, {
+	    key: 'initialize',
+	    value: function initialize() {
+	      this.on("invalid", function (model, error) {
+	        console.log(error);
+	      });
+	    }
+	  }]);
+	
+	  return TaskModel;
+	}(Model);
+	
+	exports.default = TaskModel;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _model = __webpack_require__(3);
+	
+	var _model2 = _interopRequireDefault(_model);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _Backbone = Backbone;
+	var Collection = _Backbone.Collection;
+	
+	var TaskCollection = function (_Collection) {
+	  _inherits(TaskCollection, _Collection);
+	
+	  _createClass(TaskCollection, [{
+	    key: 'model',
+	    get: function get() {
+	      return _model2.default;
+	    }
+	  }]);
+	
+	  function TaskCollection(options) {
+	    _classCallCheck(this, TaskCollection);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TaskCollection).call(this, options));
+	    //this.model = TaskModel;
+	  }
+	
+	  return TaskCollection;
+	}(Collection);
+	
+	exports.default = TaskCollection;
 
 /***/ }
 /******/ ]);
+//# sourceMappingURL=bundle.js.map
