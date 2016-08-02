@@ -1,8 +1,10 @@
-import { AddTaskView, TaskView, TasksView } from './views';
+/*jshint esnext:true */
 
-import TaskCollection   from './collection';
-import MyRouter         from './router';
-import TaskModel        from './model';
+import { AddTaskView, TasksView } from './views';
+
+import Collection from './collection';
+import Router     from './router';
+import Model      from './model';
 
 
 class Application {
@@ -12,21 +14,24 @@ class Application {
 
   init() {
 
-    new MyRouter();
+    // create instance of Router for testing
+    new Router();
     Backbone.history.start();
 
-    const titles = ['Go to shop', 'Get postcard', 'Go to work'];
+    // create global (application level) tasks collection
+    var tasks = new Collection();
 
-    var tasks = new TaskCollection(titles.map( title => ({title: title}) ));
-
+    // create tasks view and render it into #todos
     var view = new TasksView({collection: tasks});
     $('#todos').html(view.render().el);
     
+    // create form for create new task
     new AddTaskView({collection: tasks});
 
   }
 }
 
+// Load the application once the DOM is ready, using `jQuery.ready`
 $(() => {
   new Application();
 });

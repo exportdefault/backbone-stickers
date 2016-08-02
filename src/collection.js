@@ -1,15 +1,13 @@
 import TaskModel  from './model';
 
-const { Collection } = Backbone;
+const { Collection, LocalStorage } = Backbone;
 
 export default class TaskCollection extends Collection {
 
-  get model() {
-    return TaskModel;
-  }
-
   constructor(options) {
     super(options);
-    //this.model = TaskModel;
+    
+    this.model = TaskModel;
+    this.localStorage = new LocalStorage('backbone-todomvc-es6');
   }
 }

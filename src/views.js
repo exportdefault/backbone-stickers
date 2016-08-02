@@ -1,28 +1,32 @@
+/*jshint esnext:true */
+
 import TaskCollection   from './collection';
 
 const { View } = Backbone;
 
 
-
 class TaskView extends View {
-  
+ 
   get tagName() {
     return 'li';
-  }
-
-  get template() {
-    return _.template( $('#task-template').html() );
-  }
+  }  
 
   constructor(options) {
     super(options);
+
+    this.template = _.template( $('#task-template').html() );
+  }
+
+  events() {
+    return {
+      'click .edit':    'editTask',
+      'click .delete':  'deleteTask'
+    };
   }
 
   initialize() {
     this.listenTo(this.model, 'change', this.render);
     this.listenTo(this.model, 'destroy', this.remove);
-
-    //this.model.on('change', this.render, this);
   }
 
   render() {
@@ -30,24 +34,17 @@ class TaskView extends View {
     return this;
   }
 
-  events() {
-    return {
-      'click .edit': 'editTask',
-      'click .delete': 'deleteTask'
-    }
+  remove(event) {
+    this.$el.remove();
   }
 
   editTask(model) {
-    var newTitle = prompt('you try change task', this.model.get('title'));
-    this.model.set('title', newTitle, {validate: true});
+    var newTitle = prompt('Do you want change title?', this.model.get('title'));
+    this.model.save('title', newTitle, {validate: true});
   }
 
   deleteTask(model) {
     this.model.destroy();
-  }
-
-  remove(event) {
-    this.$el.remove();
   }
 }
 
@@ -61,34 +58,29 @@ class AddTaskView extends View {
   constructor(options) {
     super(options);
 
-    //this.el = '#add-task';
-  }
-
-  initialize() {
-    //console.log(this.$el.html());
+    this.$input = this.$el.find('input[type=text]');
   }
 
   events() {
     return {
       'submit': 'submit'
-    }
+    };
   }
+
+  initialize() {}
 
   submit(e) {
     e.preventDefault();
 
-    var $input = $(e.currentTarget).find('input[type=text]');
+    let title = this.$input.val();
+    var task = new this.collection.model({title: title}, {validate: true});
 
-    var newTaskTitle = $input.val();
-    var newTask = new this.collection.model({title: newTaskTitle}, {validate: true});
-
-    if (!newTask.validationError) {
-      this.collection.add(newTask);
-      $input.val('');
+    if (!task.validationError) {
+      this.collection.create(task);
+      this.$input.val('');
     }
   }
 }
-
 
 class TasksView extends View {
   constructor(options) {
@@ -100,36 +92,23 @@ class TasksView extends View {
   }
 
   initialize() {
-    //this.collection.on('add',)
-
     this.listenTo(this.collection, 'add', this.addOne);
-    console.log(this.collection);
+    this.listenTo(this.collection, 'all', this.render);
+
+    this.collection.fetch();
   }
 
   render() {
-    // 1. loop from list
-    // 2. render tempalte for each item 
-    // 3. insert in main template (ul, this.$el)
-
-    /*this.collection.each(function(task){
-      this.addOne(task);
-
-      //console.log(arguments);
-      //this.addOne, this
-    });*/
-
-    this.collection.each( task => this.addOne(task) );
-
+    //this.collection.each( task => this.addOne(task) );
     return this;
   }
 
 
   addOne(task) {
     // create new TaskView instance and add it in root element (ul)
-    //console.log(task);
     
-    let taskView = new TaskView({model: task});
-    this.$el.append( taskView.render().el );
+    let view = new TaskView({model: task});
+    this.$el.append( view.render().el );
   }
 }
 

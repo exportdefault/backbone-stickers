@@ -48,13 +48,13 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _views = __webpack_require__(2);
+	var _views = __webpack_require__(1);
 	
-	var _collection = __webpack_require__(4);
+	var _collection = __webpack_require__(2);
 	
 	var _collection2 = _interopRequireDefault(_collection);
 	
-	var _router = __webpack_require__(1);
+	var _router = __webpack_require__(4);
 	
 	var _router2 = _interopRequireDefault(_router);
 	
@@ -80,11 +80,10 @@
 	      new _router2.default();
 	      Backbone.history.start();
 	
-	      var titles = ['Go to shop', 'Get postcard', 'Go to work'];
+	      //const titles = ['Go to shop', 'Get postcard', 'Go to work'];
+	      //var tasks = new TaskCollection(titles.map( title => ({title: title}) ));
 	
-	      var tasks = new _collection2.default(titles.map(function (title) {
-	        return { title: title };
-	      }));
+	      var tasks = new _collection2.default();
 	
 	      var view = new _views.TasksView({ collection: tasks });
 	      $('#todos').html(view.render().el);
@@ -109,66 +108,11 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _views = __webpack_require__(2);
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Router = function (_Backbone$Router) {
-	  _inherits(Router, _Backbone$Router);
-	
-	  function Router() {
-	    _classCallCheck(this, Router);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Router).call(this, {
-	      routes: {
-	        '': 'home',
-	        'about': 'about'
-	      }
-	    }));
-	  }
-	
-	  _createClass(Router, [{
-	    key: 'home',
-	    value: function home() {
-	      console.log('Route#home was called!');
-	      var view = new _views.HomeView();
-	      $('#app').html(view.render().$el);
-	    }
-	  }, {
-	    key: 'about',
-	    value: function about() {
-	      console.log('Route#about was called!');
-	      var view = new _views.AboutView();
-	      $('#app').html(view.render().$el);
-	    }
-	  }]);
-	
-	  return Router;
-	}(Backbone.Router);
-	
-	exports.default = Router;
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
 	exports.TasksView = exports.TaskView = exports.AddTaskView = exports.AboutView = exports.HomeView = undefined;
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _collection = __webpack_require__(4);
+	var _collection = __webpack_require__(2);
 	
 	var _collection2 = _interopRequireDefault(_collection);
 	
@@ -277,6 +221,15 @@
 	        'submit': 'submit'
 	      };
 	    }
+	
+	    /*newAttributes() {
+	      return {
+	        title: this.$input.val().trim(),
+	        //order: Todos.nextOrder(),
+	        //completed: false
+	      };
+	    }*/
+	
 	  }, {
 	    key: 'submit',
 	    value: function submit(e) {
@@ -285,12 +238,13 @@
 	      var $input = $(e.currentTarget).find('input[type=text]');
 	
 	      var newTaskTitle = $input.val();
-	      var newTask = new this.collection.model({ title: newTaskTitle }, { validate: true });
+	      //var newTask = new this.collection.model({title: newTaskTitle}, {validate: true});
 	
-	      if (!newTask.validationError) {
-	        this.collection.add(newTask);
-	        $input.val('');
-	      }
+	      //if (!newTask.validationError) {
+	      //this.collection.add(newTask);
+	      this.collection.create({ title: newTaskTitle });
+	      $input.val('');
+	      //}
 	    }
 	  }]);
 	
@@ -413,6 +367,54 @@
 	exports.TasksView = TasksView;
 
 /***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _model = __webpack_require__(3);
+	
+	var _model2 = _interopRequireDefault(_model);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var _Backbone = Backbone;
+	var Collection = _Backbone.Collection;
+	var LocalStorage = _Backbone.LocalStorage;
+	
+	var TaskCollection = function (_Collection) {
+	  _inherits(TaskCollection, _Collection);
+	
+	  /*get model() {
+	    return TaskModel;
+	  }*/
+	
+	  function TaskCollection(options) {
+	    _classCallCheck(this, TaskCollection);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(TaskCollection).call(this, options));
+	
+	    _this.model = _model2.default;
+	    _this.localStorage = new LocalStorage('backbone-todomvc-es6');
+	    return _this;
+	  }
+	
+	  return TaskCollection;
+	}(Collection);
+	
+	exports.default = TaskCollection;
+
+/***/ },
 /* 3 */
 /***/ function(module, exports) {
 
@@ -489,11 +491,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _model = __webpack_require__(3);
-	
-	var _model2 = _interopRequireDefault(_model);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _views = __webpack_require__(1);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -501,30 +499,40 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _Backbone = Backbone;
-	var Collection = _Backbone.Collection;
+	var Router = function (_Backbone$Router) {
+	  _inherits(Router, _Backbone$Router);
 	
-	var TaskCollection = function (_Collection) {
-	  _inherits(TaskCollection, _Collection);
+	  function Router() {
+	    _classCallCheck(this, Router);
 	
-	  _createClass(TaskCollection, [{
-	    key: 'model',
-	    get: function get() {
-	      return _model2.default;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Router).call(this, {
+	      routes: {
+	        '': 'home',
+	        'about': 'about'
+	      }
+	    }));
+	  }
+	
+	  _createClass(Router, [{
+	    key: 'home',
+	    value: function home() {
+	      console.log('Route#home was called!');
+	      var view = new _views.HomeView();
+	      $('#app').html(view.render().$el);
+	    }
+	  }, {
+	    key: 'about',
+	    value: function about() {
+	      console.log('Route#about was called!');
+	      var view = new _views.AboutView();
+	      $('#app').html(view.render().$el);
 	    }
 	  }]);
 	
-	  function TaskCollection(options) {
-	    _classCallCheck(this, TaskCollection);
+	  return Router;
+	}(Backbone.Router);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(TaskCollection).call(this, options));
-	    //this.model = TaskModel;
-	  }
-	
-	  return TaskCollection;
-	}(Collection);
-	
-	exports.default = TaskCollection;
+	exports.default = Router;
 
 /***/ }
 /******/ ]);
