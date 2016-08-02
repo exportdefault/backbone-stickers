@@ -1,6 +1,7 @@
 /*jshint esnext:true */
 
-import TaskCollection   from './collection';
+import { TaskTemplate, HomeTemplate, AboutTemplate } from './templates';
+import TaskCollection from './collection';
 
 const { View } = Backbone;
 
@@ -14,7 +15,7 @@ class TaskView extends View {
   constructor(options) {
     super(options);
 
-    this.template = _.template( $('#task-template').html() );
+    this.template = _.template( TaskTemplate );
   }
 
   events() {
@@ -118,7 +119,8 @@ class TasksView extends View {
 class HomeView extends Backbone.View {
 
   initialize () {
-    this.template = $('script[name="home"]').html();
+    //this.template = $('script[name="home"]').html();
+    this.template = HomeTemplate;
   }
 
   render () {
@@ -130,7 +132,7 @@ class HomeView extends Backbone.View {
 class AboutView extends Backbone.View {
 
   initialize () {
-    this.template = $('script[name="about"]').html();
+    this.template = AboutTemplate;
   }
 
   render () {
