@@ -1,0 +1,60 @@
+.hidden {
+  display: none;
+}
+
+.completed span{
+  text-decoration: line-through;
+}
+
+a.selected {
+  font-weight: bold;
+}
+
+#add-task {
+  padding-bottom: 10px;
+}
+
+#todoapp {
+  padding: 20px;
+}
+
+#new-todo {
+  font-family: 'Noto Serif',serif;
+  font-size: 2rem;
+  line-height: 1.6em;
+  color: #3A4145;
+  border: 1px solid #ddd;
+  padding: 2px 8px;
+}
+
+#todos {
+  background: #f5f4f2;
+}
+
+#todos ul {
+  list-style-type: none;
+  padding: 50px 40px;
+}
+
+#todos ul li{
+  padding: 6px;
+}
+
+input[type="checkbox"] {
+    display:none;
+}
+
+input[type="checkbox"] + label span {
+    display:inline-block;
+    width:19px;
+    height:19px;
+    background: #ddd; /*url(check_radio_sheet.png) left top no-repeat;*/
+    border-radius: 10px;
+    margin:-2px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+}
+
+input[type="checkbox"]:checked + label span {
+    background: #222;
+}

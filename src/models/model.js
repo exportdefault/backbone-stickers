@@ -1,15 +1,24 @@
 const { Model } = Backbone;
 
+// Todo Model class
 export default class TaskModel extends Model {
   constructor(...args) {
     super(...args);
   }
 
+  // Define some default attributes for the todo.
   defaults() {
     return {
-        title: 'unnamed',
-        sort: 10
+        title: '',
+        completed: false
       };
+  }
+
+  // Toggle the `completed` state of this todo item.
+  toggle() {
+    this.save({
+      completed: !this.get('completed')
+    });
   }
 
   validate(attr) {
