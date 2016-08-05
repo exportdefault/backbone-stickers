@@ -1,12 +1,13 @@
 {
-  "name": "backbone-es6-demo",
+  "name": "backbone-stickers",
   "version": "1.0.0",
-  "description": "An example of using ES6 Modules and classes with Backbone + Webpack",
+  "description": "An example of using ES6 Modules and classes with Backbone + Marionette + Webpack",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
     "watch": "webpack --watch",
-    "start": "webpack-dev-server --hot --inline"
+    "start": "webpack-dev-server --hot --inline",
+    "server": "node server.js"
   },
   "author": "Alexander Morgunov",
   "license": "ISC",
@@ -31,13 +32,11 @@
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "handlebars-loader": "^1.3.0"
   },
   "dependencies": {
     "core-js": "^2.4.1",
-    "handlebars": "^4.0.5",
-    "handlebars-loader": "^1.3.0",
-    "lodash": "^4.14.1",
-    "monkberry": "^4.0.7"
+    "handlebars": "^4.0.5"
   }
 }
