@@ -1,24 +1,20 @@
-/*jshint esnext:true */
 
-import Library      from './collections/library';
-import LibraryView  from './views/library';
-import Book         from './models/book';
+import AppLayout from './views/layouts/root';
 
-class Application {
-  constructor () {
-    this.init();
+export default class Application extends Backbone.Marionette.Application {
+
+  setRootLayout() {
+    console.log('Application::setRootLayout() [...]');    
+    this.root = new AppLayout();
   }
 
-  init() {
+  initialize(options) {
+    this.mergeOptions(options, ['router']);
 
-    $('#releaseDate').datepicker();
-    new LibraryView(); 
+    //this.router = 'future Backbone.Radio.channel'
+
+    //console.log('My container:', options.container);
+    //console.log('This router:', this.router);
   }
+
 }
-
-// Load the application once the DOM is ready, using `jQuery.ready`
-$(() => {
-  new Application();
-});
-
-import './../stylesheets/base';

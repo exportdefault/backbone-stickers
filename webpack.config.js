@@ -9,7 +9,7 @@ const config = {
   context: __dirname, // This option allows to write relative paths in the "entry" prop. Note: Doesn't affect "output"
   entry: {
     //indexIndex: './frontend/views/index/index.js',
-    app: ['./src/javascripts/app'] // array type required to add files through gulp webpack-dev-task
+    main: ['./src/javascripts/main'] // array type required to add files through gulp webpack-dev-task
   },
   output: {
     path: path.join(__dirname, './'),
@@ -31,6 +31,10 @@ const config = {
           'style',
           'css!sass?outputStyle=compressed'
         )
+      },
+      { 
+        test: /\.handlebars$/, 
+        loader: "handlebars-loader"
       }
     ]
   },
@@ -51,7 +55,7 @@ const config = {
 
   resolve: {
     modulesDirectories: ['node_modules'],
-    extensions: ['', '.js', '.scss', '.css'],
+    extensions: ['', '.js', '.scss', '.css', 'handlebars'],
   },
 
   stats: {
