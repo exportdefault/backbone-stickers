@@ -20,18 +20,16 @@ cd public && bower install
 
 ## Usage
 
+* For built once JS, SCSS files you can start webpack in terminal. If you want that *watch files* continuously, rebuild incrementally whenever one of them changes, using `--watch`.
 
-* Build once and after open `index.html` in a web browser:
 ```
-npm run build
+webpack
+webpack --watch
 ```
-* If you want that *watch files* continuously, rebuild incrementally whenever one of them changes, then open `index.html` in a web browser, manually reload page whenever there was a change.
+* For run server and test functionall run server and then then go to `http://localhost:4311/`
+
 ```
-npm run watch
-```
-* If you want hot reloading via the webpack development server, then go to `http://localhost:8080/` (The page reloads automatically when there are changes).
-```
-npm start
+node server/server.js
 ```
 
 ## Description
