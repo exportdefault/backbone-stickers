@@ -59,8 +59,7 @@ In the server-side, we use the `CSRF Express.js middleware`, and then with [Hand
 In the client side use Session model we can extract this token from meta tag using jQuery like 
 ```
 let token = $('meta[name="csrf-token"]').attr('content');
-```;
-
+```
 
 There's singelton SessionModel to manage state. Views and other models all can subscribe to changes in session state and extract current authorizate user data:
 
@@ -68,11 +67,6 @@ There's singelton SessionModel to manage state. Views and other models all can s
 app.session.on('change:logged_in'"', this.onLoginStatusChange);
 var message = 'Logged in as ' + app.session.user.get('username'"')
 ```
-
-
-
-Session model
-
 
 ### Server-side
 
