@@ -13,8 +13,8 @@ This project is written in ES6-code with the using backbone.
 ```
 git clone https://github.com/exportdefault/backbone-stickers.git
 cd backbone-stickers
+npm install -g webpack bower
 npm install
-npm install -g webpack
 cd public && bower install
 ```
 
@@ -26,7 +26,7 @@ cd public && bower install
 webpack
 webpack --watch
 ```
-* For run server and test functionall run server and then then go to `http://localhost:4311/`
+* For run server and test functionall run server and then then go to `http://localhost:4311/` (You can change port in `server/config`.
 
 ```
 node server/server.js
@@ -62,8 +62,8 @@ let token = $('meta[name="csrf-token"]').attr('content');
 There's singelton SessionModel to manage state. Views and other models all can subscribe to changes in session state and extract current authorizate user data:
 
 ```
-app.session.on('change:logged_in'"', this.onLoginStatusChange);
-var message = 'Logged in as ' + app.session.user.get('username'"')
+app.session.on('change:logged_in', this.onLoginStatusChange);
+var message = 'Logged in as ' + app.session.user.get('username');
 ```
 
 ### Server-side
