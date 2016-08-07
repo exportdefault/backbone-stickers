@@ -1,16 +1,15 @@
 import StickerView from './sticker';
-//import { template as ListTemplate } from './../templates/list';
 import template from './../../templates/list.handlebars'; 
 
-// Item List View
-// --------------
-//
 // Controls the rendering of the list of items, including the
 // filtering of activs vs completed items for display.
-
 export default class ListView extends Backbone.Marionette.CompositeView {
 
-
+  initialize() {
+    //this.listenTo(this.channel.request('filterState'), 'change:filter', this.render, this);
+    //this.listenTo( this.collection, 'add', this.renderBook );
+    //this.listenTo( this.collection, 'reset', this.render );
+  }
 
   constructor(options) {
     super(options);
@@ -18,9 +17,6 @@ export default class ListView extends Backbone.Marionette.CompositeView {
     this.template = template; //'#template-todoListCompositeView';
     this.childView = StickerView;
     this.childViewContainer = '#sticker-list';
-
-    //this.channel = 
-
   }
 
   collectionEvents() {
@@ -64,14 +60,5 @@ export default class ListView extends Backbone.Marionette.CompositeView {
     this.collection.each(function (todo) {
       todo.save({ completed: isChecked });
     });
-  }
-
-  initialize() {
-
-    //this.listenTo(this.channel.request('filterState'), 'change:filter', this.render, this);
-    
-
-    //this.listenTo( this.collection, 'add', this.renderBook );
-    //this.listenTo( this.collection, 'reset', this.render );
   }
 }

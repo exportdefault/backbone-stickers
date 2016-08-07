@@ -1,3 +1,5 @@
+"use strict";
+
 const methodOverride  = require('method-override'),
   cookieSession   = require('cookie-session'),
   errorHandler    = require('error-handler'),

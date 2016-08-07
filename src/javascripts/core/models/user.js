@@ -1,6 +1,4 @@
-import BaseModel from './../model';
-
-class UserModel extends BaseModel {
+class UserModel extends Backbone.Model {
   constructor() {
     super();
 
@@ -21,12 +19,6 @@ class UserModel extends BaseModel {
   parse(response) {
    response.id = response._id;
    return response;
-  }
-
-  initialize() {
-    /*if (this.isNew()) {
-      this.set('created', Date.now());
-    }*/
   }
 
 }

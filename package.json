@@ -4,14 +4,8 @@
   "description": "An example of using ES6 Modules and classes with Backbone + Marionette + Webpack",
   "main": "index.js",
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch",
-    "start": "webpack-dev-server --hot --inline",
-    "server": "node server.js"
-  },
-  "scripts": {
     "start": "node server.js"
-  },  
+  },
   "author": "Alexander Morgunov",
   "license": "ISC",
   "devDependencies": {
@@ -40,6 +34,7 @@
   },
   "dependencies": {
     "bcrypt": "^0.8.7",
+    "bindings": "^1.2.1",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.1",
     "core-js": "^2.4.1",

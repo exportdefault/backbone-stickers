@@ -1,6 +1,8 @@
-import BaseModel from './../core/model';
+//import Sticker  from './../models/sticker';
 
-export default class Sticker extends BaseModel {
+const { Model, Collection, LocalStorage } = Backbone;
+
+class Sticker extends Model {
   constructor(...args) {
     super(...args);
   }
@@ -21,9 +23,10 @@ export default class Sticker extends BaseModel {
    response.id = response._id;
 
    // @todo get current user_id!
-   let user_id = 1;
+   let user_id = Backbone.Radio.channel('app').request('session').user.get('id');
 
    console.log(JSON.stringify(response));
+   console.log(user_id);
 
    response.liked = !!(_.find(response.likes, item => item.user_id == user_id ));
    response.likes = response.likes.length;
@@ -49,5 +52,37 @@ export default class Sticker extends BaseModel {
       this.set('created', Date.now());
     }
   }
+}
+
+
+class Stickers extends Collection {
+
+  constructor(options) {
+    super(options);
+
+    this.comparator = 'created';
+
+    // Hold a reference to this collection's model.
+    this.model = Sticker;
+   
+    // url to sync
+    this.url = '/api/stickers';
+
+  }
+
+  getLiked() {
+    return this.filter(this._isLiked);
+  }
+
+  getActive() {
+    return this.reject(this._isLiked);
+  }
+
+  _isLiked(item) {
+    return item.isLiked();
+  }
 
 }
+
+
+export { Sticker, Stickers };

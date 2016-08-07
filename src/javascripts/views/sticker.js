@@ -1,11 +1,5 @@
 import template from './../../templates/sticker.handlebars'; 
-//import Cache from './../helpers/cache';
 
-// Todo List Item View
-//
-// Display an individual todo item, and respond to changes
-// that are made to the item, including marking completed.
-// 
 // StikerView class
 export default class StickerView extends Backbone.Marionette.ItemView {
 

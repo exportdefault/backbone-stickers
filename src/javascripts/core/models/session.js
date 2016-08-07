@@ -1,7 +1,6 @@
-import BaseModel from './../model';
 import UserModel from './user';
 
-export default class SessionModel extends BaseModel {
+export default class SessionModel extends Backbone.Model {
   constructor() {
     super();
 
