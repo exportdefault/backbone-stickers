@@ -1,9 +1,9 @@
-<h1>add sticker:</h1>
-<form id="new-sticker" action="#">
-  <div>
-    <label for="title">Title: </label> <input id="title" type="text" />
-    <label for="description">Description: </label> <input id="description" type="text" />
-       
-    <button type="submit" value="add" id="add">add</button>
-  </div>
-</form>
+<ul id="menu">
+<li><a class="selected" href="#">Home</a></li>
+<li><a href="#stickers">Stickers</a></li>
+<li>{{#if logged_in }} <a href="#logout" class="logout">Logout</a> {{else}} <a href="#login">Login</a> {{/if}}</li>
+</ul>
+
+<br><br>
+
+

@@ -52,7 +52,8 @@ export default class StickerView extends Backbone.Marionette.ItemView {
     };
   }
 
-  like() {
+  like(event) {
+    event.preventDefault();
     this.model.toggle().save();
   }
 

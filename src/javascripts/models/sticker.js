@@ -21,9 +21,10 @@ export default class Sticker extends Model {
    response.id = response._id;
 
    // @todo get current user_id!
-   let user_id = 1;
+   let user_id = Backbone.Radio.channel('app').request('session').user.get('id');
 
    console.log(JSON.stringify(response));
+   console.log(user_id);
 
    response.liked = !!(_.find(response.likes, item => item.user_id == user_id ));
    response.likes = response.likes.length;

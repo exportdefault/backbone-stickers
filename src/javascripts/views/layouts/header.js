@@ -1,5 +1,5 @@
 //import { template as HeaderTemplate } from './../../templates/layouts/header'; 
-import template from './../../../templates/layouts/header.handlebars'; 
+import HeaderTemplate from './../../../templates/layouts/header.handlebars'; 
 
 //console.log(Handlebars.compile(template));
 
@@ -8,25 +8,60 @@ import template from './../../../templates/layouts/header.handlebars';
 
 export default class HeaderLayout extends Backbone.Marionette.ItemView {
 
+
   constructor(options) {
     super(options);
+    //this.template = template;
 
-    this.template = template;
   }
 
-  /*template(serialized_model) {
-    //var name = serialized_model.name;
-    return _.template('')({
-        //name : name,
-        //some_custom_attribute : some_custom_key
+  onRender() {
+
+    let filter = window.location.hash.substr(1) || '';
+    console.log('AAAAAAAAAAAAAAAAAAAAAAAA' + filter);
+
+    this.ui.nav.find('li a')
+      .removeClass('selected')
+      .filter('[href="#' + (filter || '') + '"]')
+      .addClass('selected');
+  }
+
+  template(model) {
+
+    const session = Backbone.Radio.channel('app').request('session');
+
+    let logged_in = session.get('logged_in');
+    let username = logged_in ? session.user.get('username') : '';
+
+    return HeaderTemplate({
+        logged_in : logged_in,
+        username  : username
     });
-  }*/
+  }
+
+  initialize() {
+
+    this.app = Backbone.Radio.channel('app');
+        
+    this.listenTo(this.app.request('session'), 'change:logged_in', this.render);
+    console.log('HeaderLayout::initializate() [...]');  
+
+    Backbone.history.on("all", (route, router) => {
+        this.onRender();
+    });
+
+  }
+
+  onClose() {
+    this.stopListening();
+  }
 
   // UI bindings create cached attributes that
   // point to jQuery selected objects
   ui() {
     return {
-      form: '#new-sticker'
+      form: '#new-sticker',
+      nav: '#menu'
     };
   }
 
@@ -34,7 +69,9 @@ export default class HeaderLayout extends Backbone.Marionette.ItemView {
     return {
       //'keypress @ui.input': 'onInputKeypress',
       //'keyup @ui.input': 'onInputKeyup'
-      'submit @ui.form': 'onSubmit'
+      'submit @ui.form': 'onSubmit',
+      //'click @ui.nav': 'onRender'
+
     };
   }  
 
@@ -92,10 +129,5 @@ export default class HeaderLayout extends Backbone.Marionette.ItemView {
 
     //this.collection.add( new Book(formData) );
     //console.log('on submit');
-  }
-
-
-  initialize() {
-    console.log('HeaderLayout::initializate() [...]');     
   }
 }
