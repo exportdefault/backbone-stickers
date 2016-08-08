@@ -4,6 +4,8 @@ A small project that shows how to use webpack + backbone for client-side develop
 
 This project is written in ES6-code with the using backbone.
 
+![alt tag](public/i/preview.png)
+
 ## Installation
 
 * Install [nodejs](https://nodejs.org)
