@@ -1,10 +1,28 @@
 # backbone-stickers
 
-A small project that shows how to use webpack + backbone for client-side development in ES6 and sync data with server (nodejs/express + mongodb). 
-
-This project is written in ES6-code with the using backbone.
+A small project that shows how to use webpack + backbone for client-side development in ES6 and sync data with server (nodejs/express + mongodb). This project is written in ES6-code with the using backbone.
 
 ![alt tag](public/i/preview.png)
+
+## Task
+
+To develop SPA with the following functionality:
+
+![alt tag](public/i/task.png)
+
+- User's registration and authorization.
+- Unauthorized users (guests) can only register, all other function is available only authorized users.
+- Displays a list of entities (see. picture above). This list will be loaded from the server in JSON format using the AJAX-request (you can create your own server, or use a cloud database with the REST API interface).
+- Each entity must have at least the title, a short description and state of the Like (or likes counter).
+- When you click on "X", corresponding card is removed from the page (using any jquery effect) and sent a request to delete the card from the server.
+- Clicking on the "Like" - changing design of labels and sent a request to the server to make the appropriate changes.
+- Like state must be associated with the authorized user.
+- Adding and editing entities are available users with `admin` role.
+
+Extra points:
+- Use modular approach.
+- Application must be single page.
+- When you refresh the page, it's displayed with the specified URL route.
 
 ## Installation
 
@@ -71,8 +89,3 @@ var message = 'Logged in as ' + app.session.user.get('username');
 ### Server-side
 
 The server-layer is a lightweight, single-file Express.js HTTP server and MongoDB. It responds to a number of typical authentication API routes, as well as renders the initial `index.html` page wrapper to plant the session CSRF token. Ofcause, it’s a good practice to have an isolated User/Auth model in the server which handles validations and database interaction, **but** for simplicity this functionality is encapsulated inside API handlers (at the controller-level).
-
-
-## Task
-
-some text about firstly task ...
