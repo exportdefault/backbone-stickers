@@ -1,10 +1,12 @@
 <div class="stickers__item" data-id="{{id}}">
   <div class="stickers__item__close">
-    <a href="#" class="destroy">X</a>
+    <a href="#" class="destroy"><i class="fa fa-times" aria-hidden="true"></i></a>
   </div>  
   <div class="stickers__item__title">{{title}}</div>
     <div class="stickers__item__description">{{description}}</div>
     <div class="stickers__item__like">
-    <a href="#" class="like{{#if liked }} liked{{/if}}">like (<span>{{likes}}</span>)</a>
+    <a href="#" class="like{{#if liked }} liked{{/if}}">
+      <i class="fa fa-heart{{#unless liked }}-o{{/unless}}" aria-hidden="true"></i> <span>{{likes}}</span>
+    </a>
  </div>
 </div>

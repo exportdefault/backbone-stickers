@@ -63,18 +63,14 @@ app.listen(port, console.log('Server is running on port', port));
 
 
 
-mongoose.connect( 'mongodb://localhost/library_database' );
+//mongoose.connect( 'mongodb://localhost/library_database' );
+mongoose.connect( 'mongodb://localhost/myapp' );
 
 // @see http://mongoosejs.com/docs/promises.html
 mongoose.Promise = global.Promise;
 
 var StickerModel  = require('./api/models/sticker'),
     UserModel     = require('./api/models/user');
-
-
-
-
-
 
 
 
@@ -313,32 +309,31 @@ app.put( '/api/stickers/:id', function( request, response ) {
 
     getCurrentUser( request, (user) => {
 
-    //@todo current user id
     const user_id = user._id;
-    console.log('user_id = ' + user._id);
+    console.log('current user:' + JSON.stringify(user));
 
       if (request.body.like) {
-        if (request.body.liked) {
+
+        // liked or not by current user
+        var index = -1;
+        sticker.likes.forEach((item, i) => {
+          if (item.user_id == user_id) {
+            index = i;
+          }
+        });
+
+        //~index && sticker.likes.splice(index, 1);
+
+        if (~index) {
+          sticker.likes.splice(index, 1);
+        } else {
           sticker.likes.push({
             user_id: user_id
-          });
-        } else {
-
-
-          var index = -1;
-          sticker.likes.forEach(function(item, i) {
-            if (item.user_id == user_id) {
-              index = i;
-            }
-          });
-
-          ~index && sticker.likes.splice(index, 1);
+          });          
         }
       } 
 
       console.log(sticker.likes);
-
-      //likes: []
 
       return sticker.save( function( err ) {
         if( !err ) {

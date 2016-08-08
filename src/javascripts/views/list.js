@@ -22,19 +22,21 @@ export default class ListView extends Backbone.Marionette.CompositeView {
   collectionEvents() {
     return {
       'change:completed': 'render',
-      'all': 'setCheckAllState'
+      'all': 'render'
     };
   }
 
   ui() {
     return {
-      toggle: '#toggle-all'
+      //toggle: '#toggle-all',
+      form: '#new-sticker',
     };
   }
 
   events() {
     return {
-      'click @ui.toggle': 'onToggleAllClick'
+      //'click @ui.toggle': 'onToggleAllClick',
+      'submit @ui.form': 'onSubmit',
     };
   }
 
@@ -44,21 +46,26 @@ export default class ListView extends Backbone.Marionette.CompositeView {
     return 1;
   }
 
-  setCheckAllState() {
-    function reduceCompleted(left, right) {
-      return left && right.get('completed');
-    }
+  onSubmit(event) {
+    event.preventDefault();
+    var data = {};
 
-    var allCompleted = this.collection.reduce(reduceCompleted, true);
-    this.ui.toggle.prop('checked', allCompleted);
-    this.$el.parent().toggle(!!this.collection.length);
-  }
+    const $form = this.ui.form;
 
-  onToggleAllClick(e) {
-    var isChecked = e.currentTarget.checked;
+    $form.find('input').each( (i, el) => {
+      if ($(el).val() != ''){
 
-    this.collection.each(function (todo) {
-      todo.save({ completed: isChecked });
+        data[el.id] = $(el).val();
+        $(el).val('');
+      }
     });
+
+    data['user_id'] = Backbone.Radio.channel('app').request('session').user.get('id');
+    data['like'] = false;
+
+    console.log(data);
+    if (data) {
+      this.collection.create( data );
+    }
   }
 }

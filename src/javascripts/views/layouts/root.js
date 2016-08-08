@@ -23,13 +23,7 @@ export default class AppLayout extends Backbone.Marionette.LayoutView {
   }
 
   initialize() {
-
-    var header = new HeaderLayout();
-    var footer = new FooterLayout();
-
-    Backbone.Radio.channel('app').request('layout').showChildView('header', header);
-    Backbone.Radio.channel('app').request('layout').showChildView('footer', footer);
-
-    console.log('AppLayout::initialize() [...]');
+    this.showChildView('header', new HeaderLayout());
+    this.showChildView('footer', new FooterLayout());
   }
 }

@@ -1,29 +1,81 @@
-/**
- * Demo Styles
- */
+$light-gray: #f5f5f5;
+$light-black: #21211e;
+
+$gray: #aaaaaa;
+$blue: #03709a;
+$maroon: #a00;
+
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
 
 html {
   height: 100%;
   box-sizing: border-box;
 }
 
-*,
-*:before,
-*:after {
+*, *:before, *:after {
   box-sizing: inherit;
 }
 
-body {
-  position: relative;
-  margin: 0;
-  padding-bottom: 6rem;
-  min-height: 100%;
-  font-family: "Helvetica Neue", Arial, sans-serif;
+h2 {
+  font-size: 16px;
 }
 
-/**
- * Footer Styles
- */
+a.black:hover u, a.black:hover, a:hover {
+  color: $maroon;
+}
+
+a {
+  text-decoration: none;
+  color: $blue;  
+  transition: all 0.2s linear;   
+}
+
+a.black, a.black u {
+  color: $light-black;
+}
+
+a.black u {
+  border-color: rgba(33,33,30,.2);
+}
+
+.cleared:after {
+  content: "";
+  clear: both;
+  display: block;
+}
+
+.wrapper {
+  height: calc(100% - 4em);
+}
+
+.break {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+
+body {
+  position: relative;
+  min-height: 100%;
+  height: 100%;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  //background-image: url('../images/bg.png');
+  
+  &::after {
+    content: "";
+    opacity: 0.25;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;   
+  }
+}
 
 .footer {
   position: absolute;
@@ -31,72 +83,90 @@ body {
   bottom: 0;
   left: 0;
   padding: 1rem;
-  background-color: #efefef;
+  background-color: $light-gray;
   text-align: center;
+  margin: 0 auto;
+  padding: 32px 16px;
+  font-size: 88%;
+
+  .copyright {
+    color: $gray;
+
+    a:hover {
+      color: $maroon;
+    }
+  }
+
+  .social {
+    font-size: 150%;
+    padding: 0;
+    margin: 0 0 1em;
+  }
 }
 
 
-
-.selected {
-  font-weight: bold;
+.content {
+  width: 760px;
+  height: 100%;
+  padding: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  background: rgba(255,255,255,0.9);
 }
 
-/*body {
- background-color: #eee;
-}
-.bookContainer {
- outline: 1px solid #aaa;
- width: 350px;
- height: 130px;
- background-color: #fff;
- float: left;
- margin: 5px;
-}
-.bookContainer img {
- float: left;
- margin: 10px;
-}
-.bookContainer ul {
- list-style-type: none;
- margin-bottom: 0;
-}
-.bookContainer button {
- float: right;
- margin: 10px;
-}
-#addBook label {
- width: 100px;
- margin-right: 10px;
- text-align: right;
- line-height: 25px;
-}
-#addBook label, #addBook input {
- display: block;
- margin-bottom: 10px;
- float: left;
-}
-#addBook label[for="title"], #addBook label[for="releaseDate"] {
- clear: both;
-}
-#addBook button {
- display: block;
- margin: 5px 20px 10px 10px;
- float: right;
- clear: both;
-}
-#addBook div {
- width: 550px;
-}
-#addBook div:after {
- content: "";
- display: block;
- height: 0;
- visibility: hidden;
- clear: both;
- font-size: 0;
- line-height: 0;
+
+.header-wrap {
+  position: relative;
+  padding: 0 16px;
+  background: $light-gray;
 }
 
-img {
-  height: 100px;
-}*/
+.header {
+  padding: 8px 0 6px;
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+
+.menu {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 11px;
+  line-height: 28px;
+  list-style: none;
+  margin: 0 0 0 -10px;
+  padding: 0;
+  display: inline-block;
+  width: 100%;
+
+  .right {
+    float: right;
+  }
+
+  .li {
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+
+    a {
+      padding: 8px 10px;
+    }
+
+    a.black, a.black u {
+      color: #21211e;
+      border-color: rgba(33,33,30,.2);
+    }
+
+    a:hover u, a.selected u {
+        color: #a00;
+        border-color: #a00;
+    }
+
+    a u {
+      text-decoration: none;
+      border-bottom: .1em solid;
+      color: $blue;   
+      border-color: rgba(3,112,154,.2);
+    }
+  }
+}

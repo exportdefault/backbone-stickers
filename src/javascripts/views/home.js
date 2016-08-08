@@ -6,8 +6,6 @@ export default class HomeLayout extends BaseLayout {
   constructor(options) {
     super(options);
     //this.template = template;
-
-
   }
 
   template(model) {
@@ -24,20 +22,11 @@ export default class HomeLayout extends BaseLayout {
   }
 
   initialize() {
-
-    const session = Backbone.Radio.channel('app').request('session');
-
-    console.log('HomerLayout::initializate() [...]');       
+    const session = Backbone.Radio.channel('app').request('session');       
     this.listenTo(this.session, 'change:logged_in', this.render);
-
   }
 
   onClose() {
     this.stopListening();
   }
 }
-
-
-
-//window.session.off('change:logged_in', this.render);
-//window.session.on('change:logged_in', this.render, this);

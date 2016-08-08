@@ -6,24 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Backbone.js Library</title>
 
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Noto+Serif:400,700,400italic|Open+Sans:700,400">  
   <link rel="stylesheet" href="css/app.css" />
   <link rel="stylesheet" href="css/main.css">
-  
+  <link rel="stylesheet" href="css/input.css">
+  <link rel="stylesheet" href="css/font-awesome.min.css">
+
   <meta name="csrf-token" content="{{csrfToken}}">
+
+  <style> body:after { background-image: url(image/bg.png); } </style>
+
 </head>
 <body>
-
-  <section id="todoapp">
+  <section class="wrapper" id="todoapp">
     <header id="header"></header>
-    <section id="main"></section>
+    <section class="content" id="main"></section>
     <footer class="footer" id="footer"></footer>
   </section>
-
-  <div id="wrap">
-    <div class="header"></div>
-    <div id="content" class="container"></div>
-  </div>  
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
   <script src="bower_components/handlebars/handlebars.min.js"></script>

@@ -7,7 +7,6 @@ export default class SessionModel extends Backbone.Model {
     this.url = 'api/auth';
   }
 
-
   // Initialize with negative/empty defaults
   // These will be overriden after the initial checkAuth
   defaults() {
@@ -19,35 +18,14 @@ export default class SessionModel extends Backbone.Model {
   }
 
   initialize() {
-    //_.bindAll(this);
-    
-    console.log('init session');
 
     // Singleton user object
     // Access or listen on this throughout any module with app.session.user
     this.user = new UserModel();
-
-
-    /*var token = $('meta[name="csrf-token"]').attr('content');
-
-    //Ajax Request Configuration
-    //To Set The CSRF Token To Request Header
-    $.ajaxSetup({
-      headers : {
-        'X-CSRF-Token' : token
-      }
-    });
-
-    //Check for sessionStorage support
-    if(Storage && sessionStorage){
-      this.supportStorage = true;
-    }*/
-
   }
 
   // Fxn to update user attributes after recieving API response
   updateSessionUser(userData){
-    console.log('set user data');
     this.user.set(_.pick(userData, _.keys(this.user.defaults())));
   }
 

@@ -1,9 +1,11 @@
-<ul id="menu">
-<li><a class="selected" href="#">Home</a></li>
-<li><a href="#stickers">Stickers</a></li>
-<li>{{#if logged_in }} <a href="#logout" class="logout">Logout</a> {{else}} <a href="#login">Login</a> {{/if}}</li>
-</ul>
-
-<br><br>
-
-
+<div class="header-wrap">
+  <div class="header">
+    <ul id="menu" class="menu">
+      <li class="li logo"><a href="#" class="black"><strong><i class="fa fa-simplybuilt" aria-hidden="true"></i> Backbone-stickers</strong></a></li>
+      <li class="li"><a href="#stickers"><u>Stickers</u></a></li>
+      <li class="li"><a href="#about"><u>About</u></a></li>
+      <li class="li right">{{#if logged_in }} Hello, <b>{{username}}</b> <a href="#logout"><u>Logout</u></a>{{else}}
+      <a href="#login"><u>Login</u></a>{{/if}}</li>
+    </ul>
+  </div>
+</div>

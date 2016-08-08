@@ -16,20 +16,18 @@ export default class BaseController extends Backbone.Marionette.Object {
     return [];
   }
 
-  setAction(filter) {
-
-    console.log('current filter: ' + filter);
+  filter(filter) {
 
     filter = filter || 'home';
     let options = {};
 
     if (this[filter] && typeof this[filter] === 'function') {
 
-      if(!~this.requresAuth().indexOf(filter)) {
+      if(~this.requresAuth().indexOf(filter)) {
         options = _.extend(options, {requiresAuth: true});
       }
 
-      if(!~this.preventAccessWhenAuth().indexOf(filter)) {
+      if(~this.preventAccessWhenAuth().indexOf(filter)) {
         options = _.extend(options, {preventAccessWhenAuth: true});
       }
 
@@ -39,25 +37,23 @@ export default class BaseController extends Backbone.Marionette.Object {
   }
 
 
-  checkAccess(filter, opt = [], callback) {
+  checkAccess(filter, opt = {}, callback) {
 
     // Need to be authenticated before rendering view.
     // For cases like a user's settings page where we need to double check against the server.
-    if (opt.length > 1 && (opt.requiresAuth || opt.preventAccessWhenAuth ) {
+    if (opt.requiresAuth || opt.preventAccessWhenAuth ) {
 
       var self = this;
 
       app.session.checkAuth({
           success: ( res => {
-            
             if (opt.preventAccessWhenAuth) {
               Backbone.history.navigate('',  { trigger: true });
             } else {
               callback();            
             }
           }),
-          error: ( res => {
-            console.log('if u want logout, u need login first');          
+          error: ( res => {        
             if (opt.requiresAuth) {
               Backbone.history.navigate('login',  { trigger: true });
             } else {
