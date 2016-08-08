@@ -3,17 +3,23 @@
 <form id="new-sticker" action="#">
   <h2>Add new sticker:</h2>
   <div class="cleared">
-    <span class="input input--isao">
-      <input class="input__field input__field--isao" type="text" id="title" />
-      <label class="input__label input__label--isao" for="title" data-content="Title">
-        <span class="input__label-content input__label-content--isao">Title</span>
-      </label>
-    </span>
-    <span class="input input--isao">
-      <input class="input__field input__field--isao" type="text" id="description" />
-      <label class="input__label input__label--isao" for="description" data-content="Description">
-        <span class="input__label-content input__label-content--isao">Description</span>
-      </label>
+    <span class="control-group">
+      <span class="input input--isao">
+        <input class="validate input__field input__field--isao" type="text" id="title" required="" />
+        <label class="input__label input__label--isao" for="title" data-content="Title">
+          <span class="input__label-content input__label-content--isao">Title</span>
+        </label>
+        <p class="help-block"></p>
+      </span>
+    </span> 
+    <span class="control-group">
+      <span class="input input--isao">
+        <input class="validate input__field input__field--isao" type="text" id="description" required="" />
+        <label class="input__label input__label--isao" for="description" data-content="Description">
+          <span class="input__label-content input__label-content--isao">Description</span>
+        </label>
+        <p class="help-block"></p>
+      </span>
     </span>
   </div>
   <button type="submit" class="btn" id="add">Add sticker</button>

@@ -4,17 +4,23 @@
 <form id="login-form">
 
   <div class="cleared">
-    <span class="input input--isao">
-      <input class="input__field input__field--isao" name="username" type="text" id="login-username-input" />
-      <label class="input__label input__label--isao" for="login-username-input" data-content="Username">
-        <span class="input__label-content input__label-content--isao">Username</span>
-      </label>
-    </span>
-    <span class="input input--isao">
-      <input class="input__field input__field--isao" type="password" name="user_password" id="login-password-input" />
-      <label class="input__label input__label--isao" for="login-password-input" data-content="Password">
-        <span class="input__label-content input__label-content--isao">Password</span>
-      </label>
+    <span class="control-group">
+      <span class="input input--isao">
+        <input class="validate input__field input__field--isao" name="username" type="text" id="login-username-input" required="" />
+        <label class="input__label input__label--isao" for="login-username-input" data-content="Username">
+          <span class="input__label-content input__label-content--isao">Username</span>
+        </label>
+        <p class="help-block"></p>
+      </span>
+    </span>  
+    <span class="control-group">    
+      <span class="input input--isao">
+        <input class="input__field input__field--isao validate" type="password" name="user_password" id="login-password-input" minlength="4" required="" />
+        <label class="input__label input__label--isao" for="login-password-input" data-content="Password">
+          <span class="input__label-content input__label-content--isao">Password</span>
+        </label>
+        <p class="help-block"></p>
+      </span>
     </span>
   </div>
   <a href="#" id="login-btn" class="btn">Login</a>
@@ -24,19 +30,24 @@
 
 <h2>Signup</h2>
 <form id="signup-form">
-
   <div class="cleared">
-    <span class="input input--isao">
-      <input class="input__field input__field--isao" name="username" type="text" id="signup-username-input" />
-      <label class="input__label input__label--isao" for="signup-username-input" data-content="Username">
-        <span class="input__label-content input__label-content--isao">Username</span>
-      </label>
-    </span>
-    <span class="input input--isao">
-      <input class="input__field input__field--isao" type="password" name="user_password" id="signup-password-input" />
-      <label class="input__label input__label--isao" for="signup-password-input" data-content="Password">
-        <span class="input__label-content input__label-content--isao">Password</span>
-      </label>
+    <span class="control-group">
+      <span class="input input--isao">
+        <input class="input__field input__field--isao" name="username" type="text" id="signup-username-input" required="" />
+        <label class="input__label input__label--isao" for="signup-username-input" data-content="Username">
+          <span class="input__label-content input__label-content--isao">Username</span>
+        </label>
+        <p class="help-block"></p>
+      </span>
+    </span>  
+    <span class="control-group"> 
+      <span class="input input--isao">
+        <input class="input__field input__field--isao" type="password" name="user_password" id="signup-password-input" minlength="4" required="" />
+        <label class="input__label input__label--isao" for="signup-password-input" data-content="Password">
+          <span class="input__label-content input__label-content--isao">Password</span>
+        </label>
+        <p class="help-block"></p>
+      </span>
     </span>
   </div>
   <a href="#" id="signup-btn" class="btn">Signup</a>

@@ -1,5 +1,6 @@
+import ListTemplate from './../../templates/list.handlebars'; 
+import FormValidate   from './../helpers/validate.js';
 import StickerView from './sticker';
-import template from './../../templates/list.handlebars'; 
 
 // Controls the rendering of the list of items, including the
 // filtering of activs vs completed items for display.
@@ -14,7 +15,7 @@ export default class ListView extends Backbone.Marionette.CompositeView {
   constructor(options) {
     super(options);
 
-    this.template = template; //'#template-todoListCompositeView';
+    this.template = ListTemplate; //'#template-todoListCompositeView';
     this.childView = StickerView;
     this.childViewContainer = '#sticker-list';
   }
@@ -50,22 +51,22 @@ export default class ListView extends Backbone.Marionette.CompositeView {
     event.preventDefault();
     var data = {};
 
-    const $form = this.ui.form;
+    var validator = new FormValidate('#new-sticker', (errors) => {
+      if (!errors.length) {
 
-    $form.find('input').each( (i, el) => {
-      if ($(el).val() != ''){
+        const $form = this.ui.form;
+        $form.find('input').each( (i, el) => {
+          if ($(el).val() != ''){
 
-        data[el.id] = $(el).val();
-        $(el).val('');
+            data[el.id] = $(el).val();
+            $(el).val('');
+          }
+        });
+
+        data['user_id'] = Backbone.Radio.channel('app').request('session').user.get('id');
+        data['like'] = false;
+        this.collection.create( data );
       }
     });
-
-    data['user_id'] = Backbone.Radio.channel('app').request('session').user.get('id');
-    data['like'] = false;
-
-    console.log(data);
-    if (data) {
-      this.collection.create( data );
-    }
   }
 }

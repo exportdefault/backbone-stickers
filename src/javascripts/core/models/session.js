@@ -37,8 +37,7 @@ export default class SessionModel extends Backbone.Model {
   checkAuth(callback, args) {
     var self = this;
     this.fetch({ 
-      success: function(mod, res){
-        console.log(res);      
+      success: function(mod, res){    
         if(!res.error && res.user){
           res.user.id = res.user._id;
           self.updateSessionUser(res.user);
@@ -48,14 +47,11 @@ export default class SessionModel extends Backbone.Model {
           self.set({ logged_in : false });
           if('error' in callback) callback.error(mod, res);    
         }
-      }, error:function(mod, res){
-        console.log('error');              
-        console.log(res);              
+      }, error:function(mod, res){                        
         self.set({ logged_in : false });
         if('error' in callback) callback.error(mod, res);    
       }
-    }).done( function(){
-      console.log('complete');     
+    }).done( function(){   
       if('complete' in callback) callback.complete();
     });
   }
@@ -68,7 +64,6 @@ export default class SessionModel extends Backbone.Model {
   postAuth(opts, callback, args) {
     var self = this;
     var postData = _.omit(opts, 'method');
-    if (DEBUG) console.log(postData);
 
     $.ajax({
       url: this.url + '/' + opts.method,

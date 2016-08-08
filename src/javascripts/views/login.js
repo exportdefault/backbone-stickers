@@ -1,7 +1,8 @@
-import BaseLayout   from './../core/layout';
-import LoginTemplate from './../../templates/login.handlebars';
+import LoginTemplate  from './../../templates/login.handlebars';
+import FormValidate   from './../helpers/validate.js';
+import BaseLayout     from './../core/layout';
 
-export default class LoginLayout extends BaseLayout {
+export default class LoginLayout extends BaseLayout { 
 
   constructor(options) {
     super(options);
@@ -23,8 +24,7 @@ export default class LoginLayout extends BaseLayout {
     }
   }
 
-  initialize() {
-    console.log('LoginLayout::initializate() [...]');       
+  initialize() {   
     //this.listenTo(this.app.request('session'), 'change:logged_in', this.render);
 
   }
@@ -65,58 +65,44 @@ export default class LoginLayout extends BaseLayout {
   onLoginAttempt(event) {
     if(event) event.preventDefault();
 
-    if(this.$("#login-form").parsley('validate')){
-      Backbone.Radio.channel('app').request('session').login({
-        username: this.$("#login-username-input").val(),
-        password: this.$("#login-password-input").val()
-      }, {
-        success: function(mod, res) {
-          Backbone.history.navigate('',  { trigger: true });          
-          if(DEBUG) console.log("SUCCESS", mod, res);
+    var validator = new FormValidate('#login-form', (errors) => {
+      if (!errors.length) {
 
-        },
-        error: function(err) {
-          if(DEBUG) console.log("ERROR", err);
-          //app.showAlert('Bummer dude!', err.error, 'alert-danger');
-        }
-      });
-    } else {
-      // Invalid clientside validations thru parsley
-      if(DEBUG) console.log("Did not pass clientside validation");
-    }
+        Backbone.Radio.channel('app').request('session').login({
+            username: this.$("#login-username-input").val(),
+            password: this.$("#login-password-input").val()
+          }, {
+            success: function(mod, res) {
+              Backbone.history.navigate('', { trigger: true });
+            },
+            error: (err) => {
+              validator.addError(this.$("#login-username-input"), err.error);
+            }
+          });
+      }
+    });
   }
-  
 
   onSignupAttempt(event) {
     if(event) event.preventDefault();
-    if(this.$("#signup-form").parsley('validate')) {
-      Backbone.Radio.channel('app').request('session').signup({
-        username: this.$("#signup-username-input").val(),
-        password: this.$("#signup-password-input").val(),
-        name: this.$("#signup-name-input").val()
-      }, {
-        success: function(mod, res){
-          Backbone.history.navigate('',  { trigger: true });          
-          if(DEBUG) console.log("SUCCESS", mod, res);
 
-        },
-        error: function(err){
-          if(DEBUG) console.log("ERROR", err);
-          //app.showAlert('Uh oh!', err.error, 'alert-danger'); 
-        }
-      });
-    } else {
-      // Invalid clientside validations thru parsley
-      if(DEBUG) console.log("Did not pass clientside validation");
-    }
+    var validator = new FormValidate('#signup-form', (errors) => {
+      if (!errors.length) {
+
+        Backbone.Radio.channel('app').request('session').signup({
+            username: this.$("#signup-username-input").val(),
+            password: this.$("#signup-password-input").val(),
+            name: this.$("#signup-name-input").val()
+          }, {
+            success: (mod, res) => {
+              console.log('success');
+              Backbone.history.navigate('', { trigger: true });
+            },
+            error: (err) => {
+              validator.addError(this.$("#signup-username-input"), err.error);
+            }
+          });
+      }
+    });
   }
-
-
-
-
 }
-
-
-
-//window.session.off('change:logged_in', this.render);
-//window.session.on('change:logged_in', this.render, this);

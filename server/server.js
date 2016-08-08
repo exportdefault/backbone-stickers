@@ -180,16 +180,16 @@ app.post('/api/auth/signup', function(req, res) {
     password: hash
   });
 
-  user.save( function( err ) {
+  return user.save( function( err ) {
     if( !err ) {
-      return console.log( 'created' );
+      console.log( 'created' );
 
       let filter = {
         username: req.body.username
       };
 
       //Retrieve the inserted user data
-      UserModel.findOne( filter, function( err, user ) {
+      return UserModel.findOne( filter, function( err, user ) {
         if (!err) {
 
           console.log(user);
@@ -198,7 +198,15 @@ app.post('/api/auth/signup', function(req, res) {
             // Set the user cookies and return the cleansed user data
             res.cookie('user_id', user.id, { signed: true, maxAge: config.cookieMaxAge  });
             res.cookie('auth_token', user.auth_token, { signed: true, maxAge: config.cookieMaxAge  });
-            res.json({ user: _.omit(user, ['password', 'auth_token']) });
+            //res.json({ user: _.omit(user, ['password', 'auth_token']) });
+
+            res.json({ 
+              user: {
+                _id: user._id,
+                username: user.username,
+                name: user.name
+              }
+            }); 
 
           } else {
             console.log(err, rows);

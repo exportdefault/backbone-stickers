@@ -239,7 +239,6 @@
 	      var self = this;
 	      this.fetch({
 	        success: function success(mod, res) {
-	          console.log(res);
 	          if (!res.error && res.user) {
 	            res.user.id = res.user._id;
 	            self.updateSessionUser(res.user);
@@ -250,13 +249,10 @@
 	            if ('error' in callback) callback.error(mod, res);
 	          }
 	        }, error: function error(mod, res) {
-	          console.log('error');
-	          console.log(res);
 	          self.set({ logged_in: false });
 	          if ('error' in callback) callback.error(mod, res);
 	        }
 	      }).done(function () {
-	        console.log('complete');
 	        if ('complete' in callback) callback.complete();
 	      });
 	    }
@@ -272,7 +268,6 @@
 	    value: function postAuth(opts, callback, args) {
 	      var self = this;
 	      var postData = _.omit(opts, 'method');
-	      if (true) console.log(postData);
 	
 	      $.ajax({
 	        url: this.url + '/' + opts.method,
@@ -857,13 +852,17 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _layout = __webpack_require__(9);
-	
-	var _layout2 = _interopRequireDefault(_layout);
-	
 	var _login = __webpack_require__(10);
 	
 	var _login2 = _interopRequireDefault(_login);
+	
+	var _validate = __webpack_require__(48);
+	
+	var _validate2 = _interopRequireDefault(_validate);
+	
+	var _layout = __webpack_require__(9);
+	
+	var _layout2 = _interopRequireDefault(_layout);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -905,8 +904,8 @@
 	  }, {
 	    key: 'initialize',
 	    value: function initialize() {
-	      console.log('LoginLayout::initializate() [...]');
 	      //this.listenTo(this.app.request('session'), 'change:logged_in', this.render);
+	
 	    }
 	  }, {
 	    key: 'onClose',
@@ -950,59 +949,57 @@
 	  }, {
 	    key: 'onLoginAttempt',
 	    value: function onLoginAttempt(event) {
+	      var _this2 = this;
+	
 	      if (event) event.preventDefault();
 	
-	      if (this.$("#login-form").parsley('validate')) {
-	        Backbone.Radio.channel('app').request('session').login({
-	          username: this.$("#login-username-input").val(),
-	          password: this.$("#login-password-input").val()
-	        }, {
-	          success: function success(mod, res) {
-	            Backbone.history.navigate('', { trigger: true });
-	            if (true) console.log("SUCCESS", mod, res);
-	          },
-	          error: function error(err) {
-	            if (true) console.log("ERROR", err);
-	            //app.showAlert('Bummer dude!', err.error, 'alert-danger');
-	          }
-	        });
-	      } else {
-	        // Invalid clientside validations thru parsley
-	        if (true) console.log("Did not pass clientside validation");
-	      }
+	      var validator = new _validate2.default('#login-form', function (errors) {
+	        if (!errors.length) {
+	
+	          Backbone.Radio.channel('app').request('session').login({
+	            username: _this2.$("#login-username-input").val(),
+	            password: _this2.$("#login-password-input").val()
+	          }, {
+	            success: function success(mod, res) {
+	              Backbone.history.navigate('', { trigger: true });
+	            },
+	            error: function error(err) {
+	              validator.addError(_this2.$("#login-username-input"), err.error);
+	            }
+	          });
+	        }
+	      });
 	    }
 	  }, {
 	    key: 'onSignupAttempt',
 	    value: function onSignupAttempt(event) {
+	      var _this3 = this;
+	
 	      if (event) event.preventDefault();
-	      if (this.$("#signup-form").parsley('validate')) {
-	        Backbone.Radio.channel('app').request('session').signup({
-	          username: this.$("#signup-username-input").val(),
-	          password: this.$("#signup-password-input").val(),
-	          name: this.$("#signup-name-input").val()
-	        }, {
-	          success: function success(mod, res) {
-	            Backbone.history.navigate('', { trigger: true });
-	            if (true) console.log("SUCCESS", mod, res);
-	          },
-	          error: function error(err) {
-	            if (true) console.log("ERROR", err);
-	            //app.showAlert('Uh oh!', err.error, 'alert-danger'); 
-	          }
-	        });
-	      } else {
-	        // Invalid clientside validations thru parsley
-	        if (true) console.log("Did not pass clientside validation");
-	      }
+	
+	      var validator = new _validate2.default('#signup-form', function (errors) {
+	        if (!errors.length) {
+	
+	          Backbone.Radio.channel('app').request('session').signup({
+	            username: _this3.$("#signup-username-input").val(),
+	            password: _this3.$("#signup-password-input").val(),
+	            name: _this3.$("#signup-name-input").val()
+	          }, {
+	            success: function success(mod, res) {
+	              console.log('success');
+	              Backbone.history.navigate('', { trigger: true });
+	            },
+	            error: function error(err) {
+	              validator.addError(_this3.$("#signup-username-input"), err.error);
+	            }
+	          });
+	        }
+	      });
 	    }
 	  }]);
 	
 	  return LoginLayout;
 	}(_layout2.default);
-	
-	//window.session.off('change:logged_in', this.render);
-	//window.session.on('change:logged_in', this.render, this);
-	
 	
 	exports.default = LoginLayout;
 
@@ -1056,7 +1053,7 @@
 	var Handlebars = __webpack_require__(11);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-	    return "<h1>LOGIN &amp; REGISTER</h1>\n\n<h2>Login</h2>\n<form id=\"login-form\">\n\n  <div class=\"cleared\">\n    <span class=\"input input--isao\">\n      <input class=\"input__field input__field--isao\" name=\"username\" type=\"text\" id=\"login-username-input\" />\n      <label class=\"input__label input__label--isao\" for=\"login-username-input\" data-content=\"Username\">\n        <span class=\"input__label-content input__label-content--isao\">Username</span>\n      </label>\n    </span>\n    <span class=\"input input--isao\">\n      <input class=\"input__field input__field--isao\" type=\"password\" name=\"user_password\" id=\"login-password-input\" />\n      <label class=\"input__label input__label--isao\" for=\"login-password-input\" data-content=\"Password\">\n        <span class=\"input__label-content input__label-content--isao\">Password</span>\n      </label>\n    </span>\n  </div>\n  <a href=\"#\" id=\"login-btn\" class=\"btn\">Login</a>\n</form>\n\n<div class=\"break\"></div>\n\n<h2>Signup</h2>\n<form id=\"signup-form\">\n\n  <div class=\"cleared\">\n    <span class=\"input input--isao\">\n      <input class=\"input__field input__field--isao\" name=\"username\" type=\"text\" id=\"signup-username-input\" />\n      <label class=\"input__label input__label--isao\" for=\"signup-username-input\" data-content=\"Username\">\n        <span class=\"input__label-content input__label-content--isao\">Username</span>\n      </label>\n    </span>\n    <span class=\"input input--isao\">\n      <input class=\"input__field input__field--isao\" type=\"password\" name=\"user_password\" id=\"signup-password-input\" />\n      <label class=\"input__label input__label--isao\" for=\"signup-password-input\" data-content=\"Password\">\n        <span class=\"input__label-content input__label-content--isao\">Password</span>\n      </label>\n    </span>\n  </div>\n  <a href=\"#\" id=\"signup-btn\" class=\"btn\">Signup</a>\n</form>";
+	    return "<h1>LOGIN &amp; REGISTER</h1>\n\n<h2>Login</h2>\n<form id=\"login-form\">\n\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" name=\"username\" type=\"text\" id=\"login-username-input\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"login-username-input\" data-content=\"Username\">\n          <span class=\"input__label-content input__label-content--isao\">Username</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>  \n    <span class=\"control-group\">    \n      <span class=\"input input--isao\">\n        <input class=\"input__field input__field--isao validate\" type=\"password\" name=\"user_password\" id=\"login-password-input\" minlength=\"4\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"login-password-input\" data-content=\"Password\">\n          <span class=\"input__label-content input__label-content--isao\">Password</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <a href=\"#\" id=\"login-btn\" class=\"btn\">Login</a>\n</form>\n\n<div class=\"break\"></div>\n\n<h2>Signup</h2>\n<form id=\"signup-form\">\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"input__field input__field--isao\" name=\"username\" type=\"text\" id=\"signup-username-input\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"signup-username-input\" data-content=\"Username\">\n          <span class=\"input__label-content input__label-content--isao\">Username</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>  \n    <span class=\"control-group\"> \n      <span class=\"input input--isao\">\n        <input class=\"input__field input__field--isao\" type=\"password\" name=\"user_password\" id=\"signup-password-input\" minlength=\"4\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"signup-password-input\" data-content=\"Password\">\n          <span class=\"input__label-content input__label-content--isao\">Password</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <a href=\"#\" id=\"signup-btn\" class=\"btn\">Signup</a>\n</form>";
 	},"useData":true});
 
 /***/ },
@@ -2326,13 +2323,17 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _sticker = __webpack_require__(33);
-	
-	var _sticker2 = _interopRequireDefault(_sticker);
-	
 	var _list = __webpack_require__(35);
 	
 	var _list2 = _interopRequireDefault(_list);
+	
+	var _validate = __webpack_require__(48);
+	
+	var _validate2 = _interopRequireDefault(_validate);
+	
+	var _sticker = __webpack_require__(33);
+	
+	var _sticker2 = _interopRequireDefault(_sticker);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -2401,26 +2402,28 @@
 	  }, {
 	    key: 'onSubmit',
 	    value: function onSubmit(event) {
+	      var _this2 = this;
+	
 	      event.preventDefault();
 	      var data = {};
 	
-	      var $form = this.ui.form;
+	      var validator = new _validate2.default('#new-sticker', function (errors) {
+	        if (!errors.length) {
 	
-	      $form.find('input').each(function (i, el) {
-	        if ($(el).val() != '') {
+	          var $form = _this2.ui.form;
+	          $form.find('input').each(function (i, el) {
+	            if ($(el).val() != '') {
 	
-	          data[el.id] = $(el).val();
-	          $(el).val('');
+	              data[el.id] = $(el).val();
+	              $(el).val('');
+	            }
+	          });
+	
+	          data['user_id'] = Backbone.Radio.channel('app').request('session').user.get('id');
+	          data['like'] = false;
+	          _this2.collection.create(data);
 	        }
 	      });
-	
-	      data['user_id'] = Backbone.Radio.channel('app').request('session').user.get('id');
-	      data['like'] = false;
-	
-	      console.log(data);
-	      if (data) {
-	        this.collection.create(data);
-	      }
 	    }
 	  }]);
 	
@@ -2612,7 +2615,7 @@
 	var Handlebars = __webpack_require__(11);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-	    return "<h1>STICKERS</h1>\n\n<form id=\"new-sticker\" action=\"#\">\n  <h2>Add new sticker:</h2>\n  <div class=\"cleared\">\n    <span class=\"input input--isao\">\n      <input class=\"input__field input__field--isao\" type=\"text\" id=\"title\" />\n      <label class=\"input__label input__label--isao\" for=\"title\" data-content=\"Title\">\n        <span class=\"input__label-content input__label-content--isao\">Title</span>\n      </label>\n    </span>\n    <span class=\"input input--isao\">\n      <input class=\"input__field input__field--isao\" type=\"text\" id=\"description\" />\n      <label class=\"input__label input__label--isao\" for=\"description\" data-content=\"Description\">\n        <span class=\"input__label-content input__label-content--isao\">Description</span>\n      </label>\n    </span>\n  </div>\n  <button type=\"submit\" class=\"btn\" id=\"add\">Add sticker</button>\n</form>\n<div class=\"break\"></div>\n<h2>Sticker list:</h2>\n<ul class=\"cleared\" id=\"sticker-list\"></ul>";
+	    return "<h1>STICKERS</h1>\n\n<form id=\"new-sticker\" action=\"#\">\n  <h2>Add new sticker:</h2>\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" type=\"text\" id=\"title\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"title\" data-content=\"Title\">\n          <span class=\"input__label-content input__label-content--isao\">Title</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span> \n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" type=\"text\" id=\"description\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"description\" data-content=\"Description\">\n          <span class=\"input__label-content input__label-content--isao\">Description</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <button type=\"submit\" class=\"btn\" id=\"add\">Add sticker</button>\n</form>\n<div class=\"break\"></div>\n<h2>Sticker list:</h2>\n<ul class=\"cleared\" id=\"sticker-list\"></ul>";
 	},"useData":true});
 
 /***/ },
@@ -2952,6 +2955,85 @@
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    return "<h1>ABOUT</h1>\n<b>about</b> template.";
 	},"useData":true});
+
+/***/ },
+/* 48 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/* global $ */
+	
+	var FormValidate = function () {
+	  function FormValidate(form, options, callback) {
+	    _classCallCheck(this, FormValidate);
+	
+	    self = this;
+	
+	    if (typeof options === 'function') {
+	      callback = options;
+	      options = {};
+	    } else if (options instanceof []) {
+	      options = { fields: options };
+	    }
+	
+	    // use bootstrap selectors
+	    this.defaults = {
+	      errorsSelector: ".help-block",
+	      inputContainer: ".control-group",
+	      errors: [],
+	      fields: []
+	    };
+	
+	    this.options = $.extend({}, this.defaults, options);
+	
+	    this.$form = $(form);
+	
+	    if (!this.$form.length) return;
+	
+	    $(this.$form).find(self.options.errorsSelector).hide().text('');
+	
+	    // @todo add field from options
+	    this.options.$fields = this.$form.find('input[type=text], input[type=password]');
+	
+	    this.options.$fields.each(function (i, $input) {
+	
+	      var required = $(this).attr('required');
+	      var minlength = $(this).attr('minlength');
+	      var maxlength = $(this).attr('maxlength');
+	
+	      if (required && !$(this).val()) {
+	        self.addError($(this), 'Required');
+	      } else if (minlength && $(this).val().length < minlength) {
+	        self.addError($(this), 'Min length: ' + minlength);
+	      } else if (maxlength && $(this).val().length > maxlength) {
+	        self.addError($(this), 'Max length: ' + maxlength);
+	      }
+	    });
+	
+	    callback(this.options.errors);
+	  }
+	
+	  _createClass(FormValidate, [{
+	    key: "addError",
+	    value: function addError($input, error) {
+	      this.options.errors.push(error + ' (' + $input.attr('name') + ')');
+	      $input.closest(this.options.inputContainer).find(this.options.errorsSelector).show().text(error);
+	    }
+	  }]);
+	
+	  return FormValidate;
+	}();
+	
+	exports.default = FormValidate;
 
 /***/ }
 /******/ ]);
