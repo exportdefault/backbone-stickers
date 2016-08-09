@@ -67,11 +67,11 @@
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
-	var _app = __webpack_require__(36);
+	var _app = __webpack_require__(39);
 	
 	var _app2 = _interopRequireDefault(_app);
 	
-	__webpack_require__(42);
+	__webpack_require__(45);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -206,8 +206,7 @@
 	    value: function defaults() {
 	      return {
 	        logged_in: false,
-	        user_id: '',
-	        is_admin: false
+	        user_id: ''
 	      };
 	    }
 	  }, {
@@ -370,7 +369,7 @@
 	        username: '',
 	        name: '',
 	        email: '',
-	        role: UserModel.ROLE_GUEST
+	        is_admin: false
 	      };
 	    }
 	  }, {
@@ -383,10 +382,6 @@
 	
 	  return UserModel;
 	}(Backbone.Model);
-	
-	UserModel.ROLE_GUEST = 0;
-	UserModel.ROLE_USER = 1;
-	UserModel.ROLE_ADMIN = 2;
 	
 	exports.default = UserModel;
 
@@ -452,8 +447,8 @@
 	
 	      var user_id = Backbone.Radio.channel('app').request('session').user.get('id');
 	
-	      console.log(JSON.stringify(response));
-	      console.log(user_id);
+	      // console.log(JSON.stringify(response));
+	      // console.log(user_id);
 	
 	      response.liked = !!_.find(response.likes, function (item) {
 	        return item.user_id == user_id;
@@ -593,15 +588,15 @@
 	
 	var _login2 = _interopRequireDefault(_login);
 	
-	var _about = __webpack_require__(46);
+	var _about = __webpack_require__(31);
 	
 	var _about2 = _interopRequireDefault(_about);
 	
-	var _home = __webpack_require__(30);
+	var _home = __webpack_require__(33);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
-	var _list = __webpack_require__(32);
+	var _list = __webpack_require__(35);
 	
 	var _list2 = _interopRequireDefault(_list);
 	
@@ -852,15 +847,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _login = __webpack_require__(10);
+	var _login = __webpack_require__(9);
 	
 	var _login2 = _interopRequireDefault(_login);
 	
-	var _validate = __webpack_require__(48);
+	var _validate = __webpack_require__(29);
 	
 	var _validate2 = _interopRequireDefault(_validate);
 	
-	var _layout = __webpack_require__(9);
+	var _layout = __webpack_require__(30);
 	
 	var _layout2 = _interopRequireDefault(_layout);
 	
@@ -1005,68 +1000,25 @@
 
 /***/ },
 /* 9 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var BaseLayout = function (_Backbone$Marionette$) {
-	  _inherits(BaseLayout, _Backbone$Marionette$);
-	
-	  function BaseLayout() {
-	    _classCallCheck(this, BaseLayout);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(BaseLayout).call(this));
-	  }
-	
-	  _createClass(BaseLayout, [{
-	    key: "close",
-	    value: function close() {
-	      this.remove();
-	      this.unbind();
-	      if (this.onClose) {
-	        this.onClose();
-	      }
-	    }
-	  }]);
-	
-	  return BaseLayout;
-	}(Backbone.Marionette.ItemView);
-	
-	exports.default = BaseLayout;
-
-/***/ },
-/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(11);
+	var Handlebars = __webpack_require__(10);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    return "<h1>LOGIN &amp; REGISTER</h1>\n\n<h2>Login</h2>\n<form id=\"login-form\">\n\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" name=\"username\" type=\"text\" id=\"login-username-input\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"login-username-input\" data-content=\"Username\">\n          <span class=\"input__label-content input__label-content--isao\">Username</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>  \n    <span class=\"control-group\">    \n      <span class=\"input input--isao\">\n        <input class=\"input__field input__field--isao validate\" type=\"password\" name=\"user_password\" id=\"login-password-input\" minlength=\"4\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"login-password-input\" data-content=\"Password\">\n          <span class=\"input__label-content input__label-content--isao\">Password</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <a href=\"#\" id=\"login-btn\" class=\"btn\">Login</a>\n</form>\n\n<div class=\"break\"></div>\n\n<h2>Signup</h2>\n<form id=\"signup-form\">\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"input__field input__field--isao\" name=\"username\" type=\"text\" id=\"signup-username-input\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"signup-username-input\" data-content=\"Username\">\n          <span class=\"input__label-content input__label-content--isao\">Username</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>  \n    <span class=\"control-group\"> \n      <span class=\"input input--isao\">\n        <input class=\"input__field input__field--isao\" type=\"password\" name=\"user_password\" id=\"signup-password-input\" minlength=\"4\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"signup-password-input\" data-content=\"Password\">\n          <span class=\"input__label-content input__label-content--isao\">Password</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <a href=\"#\" id=\"signup-btn\" class=\"btn\">Signup</a>\n</form>";
 	},"useData":true});
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Create a simple path alias to allow browserify to resolve
 	// the runtime on a supported path.
-	module.exports = __webpack_require__(12)['default'];
+	module.exports = __webpack_require__(11)['default'];
 
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1080,30 +1032,30 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 	
-	var _handlebarsBase = __webpack_require__(13);
+	var _handlebarsBase = __webpack_require__(12);
 	
 	var base = _interopRequireWildcard(_handlebarsBase);
 	
 	// Each of these augment the Handlebars object. No need to setup here.
 	// (This is done to easily share code between commonjs and browse envs)
 	
-	var _handlebarsSafeString = __webpack_require__(27);
+	var _handlebarsSafeString = __webpack_require__(26);
 	
 	var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
 	
-	var _handlebarsException = __webpack_require__(15);
+	var _handlebarsException = __webpack_require__(14);
 	
 	var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
 	
-	var _handlebarsUtils = __webpack_require__(14);
+	var _handlebarsUtils = __webpack_require__(13);
 	
 	var Utils = _interopRequireWildcard(_handlebarsUtils);
 	
-	var _handlebarsRuntime = __webpack_require__(28);
+	var _handlebarsRuntime = __webpack_require__(27);
 	
 	var runtime = _interopRequireWildcard(_handlebarsRuntime);
 	
-	var _handlebarsNoConflict = __webpack_require__(29);
+	var _handlebarsNoConflict = __webpack_require__(28);
 	
 	var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
 	
@@ -1138,7 +1090,7 @@
 
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1149,17 +1101,17 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
-	var _exception = __webpack_require__(15);
+	var _exception = __webpack_require__(14);
 	
 	var _exception2 = _interopRequireDefault(_exception);
 	
-	var _helpers = __webpack_require__(16);
+	var _helpers = __webpack_require__(15);
 	
-	var _decorators = __webpack_require__(24);
+	var _decorators = __webpack_require__(23);
 	
-	var _logger = __webpack_require__(26);
+	var _logger = __webpack_require__(25);
 	
 	var _logger2 = _interopRequireDefault(_logger);
 	
@@ -1248,7 +1200,7 @@
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1378,7 +1330,7 @@
 
 
 /***/ },
-/* 15 */
+/* 14 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1424,7 +1376,7 @@
 
 
 /***/ },
-/* 16 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1435,31 +1387,31 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _helpersBlockHelperMissing = __webpack_require__(17);
+	var _helpersBlockHelperMissing = __webpack_require__(16);
 	
 	var _helpersBlockHelperMissing2 = _interopRequireDefault(_helpersBlockHelperMissing);
 	
-	var _helpersEach = __webpack_require__(18);
+	var _helpersEach = __webpack_require__(17);
 	
 	var _helpersEach2 = _interopRequireDefault(_helpersEach);
 	
-	var _helpersHelperMissing = __webpack_require__(19);
+	var _helpersHelperMissing = __webpack_require__(18);
 	
 	var _helpersHelperMissing2 = _interopRequireDefault(_helpersHelperMissing);
 	
-	var _helpersIf = __webpack_require__(20);
+	var _helpersIf = __webpack_require__(19);
 	
 	var _helpersIf2 = _interopRequireDefault(_helpersIf);
 	
-	var _helpersLog = __webpack_require__(21);
+	var _helpersLog = __webpack_require__(20);
 	
 	var _helpersLog2 = _interopRequireDefault(_helpersLog);
 	
-	var _helpersLookup = __webpack_require__(22);
+	var _helpersLookup = __webpack_require__(21);
 	
 	var _helpersLookup2 = _interopRequireDefault(_helpersLookup);
 	
-	var _helpersWith = __webpack_require__(23);
+	var _helpersWith = __webpack_require__(22);
 	
 	var _helpersWith2 = _interopRequireDefault(_helpersWith);
 	
@@ -1476,14 +1428,14 @@
 
 
 /***/ },
-/* 17 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
 	exports['default'] = function (instance) {
 	  instance.registerHelper('blockHelperMissing', function (context, options) {
@@ -1521,7 +1473,7 @@
 
 
 /***/ },
-/* 18 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1531,9 +1483,9 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
-	var _exception = __webpack_require__(15);
+	var _exception = __webpack_require__(14);
 	
 	var _exception2 = _interopRequireDefault(_exception);
 	
@@ -1621,7 +1573,7 @@
 
 
 /***/ },
-/* 19 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1631,7 +1583,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _exception = __webpack_require__(15);
+	var _exception = __webpack_require__(14);
 	
 	var _exception2 = _interopRequireDefault(_exception);
 	
@@ -1652,14 +1604,14 @@
 
 
 /***/ },
-/* 20 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
 	exports['default'] = function (instance) {
 	  instance.registerHelper('if', function (conditional, options) {
@@ -1687,7 +1639,7 @@
 
 
 /***/ },
-/* 21 */
+/* 20 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1719,7 +1671,7 @@
 
 
 /***/ },
-/* 22 */
+/* 21 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1737,14 +1689,14 @@
 
 
 /***/ },
-/* 23 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
 	exports['default'] = function (instance) {
 	  instance.registerHelper('with', function (context, options) {
@@ -1776,7 +1728,7 @@
 
 
 /***/ },
-/* 24 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1787,7 +1739,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _decoratorsInline = __webpack_require__(25);
+	var _decoratorsInline = __webpack_require__(24);
 	
 	var _decoratorsInline2 = _interopRequireDefault(_decoratorsInline);
 	
@@ -1798,14 +1750,14 @@
 
 
 /***/ },
-/* 25 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
 	exports['default'] = function (instance) {
 	  instance.registerDecorator('inline', function (fn, props, container, options) {
@@ -1833,14 +1785,14 @@
 
 
 /***/ },
-/* 26 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
 	var logger = {
 	  methodMap: ['debug', 'info', 'warn', 'error'],
@@ -1886,7 +1838,7 @@
 
 
 /***/ },
-/* 27 */
+/* 26 */
 /***/ function(module, exports) {
 
 	// Build out our basic SafeString type
@@ -1907,7 +1859,7 @@
 
 
 /***/ },
-/* 28 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1927,15 +1879,15 @@
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
 	
-	var _utils = __webpack_require__(14);
+	var _utils = __webpack_require__(13);
 	
 	var Utils = _interopRequireWildcard(_utils);
 	
-	var _exception = __webpack_require__(15);
+	var _exception = __webpack_require__(14);
 	
 	var _exception2 = _interopRequireDefault(_exception);
 	
-	var _base = __webpack_require__(13);
+	var _base = __webpack_require__(12);
 	
 	function checkRevision(compilerInfo) {
 	  var compilerRevision = compilerInfo && compilerInfo[0] || 1,
@@ -2205,7 +2157,7 @@
 
 
 /***/ },
-/* 29 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/* global window */
@@ -2232,7 +2184,199 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
+/* 29 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/* global $ */
+	
+	/**
+	 * @class FormValidate
+	 * Simple form validation
+	 */
+	var FormValidate = function () {
+	
+	  /**
+	   * [constructor description]
+	   * @param {string} form selector
+	   * @param {Object} options
+	   * @param {Function} callback function with error
+	   */
+	  function FormValidate(form, options, callback) {
+	    _classCallCheck(this, FormValidate);
+	
+	    self = this;
+	
+	    if (typeof options === 'function') {
+	      callback = options;
+	      options = {};
+	    } else if (options instanceof []) {
+	      options = { fields: options };
+	    }
+	
+	    // use bootstrap selectors
+	    this.defaults = {
+	      errorsSelector: ".help-block",
+	      inputContainer: ".control-group",
+	      errors: [],
+	      fields: []
+	    };
+	
+	    this.options = $.extend({}, this.defaults, options);
+	
+	    this.$form = $(form);
+	
+	    if (!this.$form.length) return;
+	
+	    $(this.$form).find(self.options.errorsSelector).hide().text('');
+	
+	    // @todo add field from options
+	    this.options.$fields = this.$form.find('input[type=text], input[type=password]');
+	
+	    this.options.$fields.each(function (i, $input) {
+	
+	      var required = $(this).attr('required');
+	      var minlength = $(this).attr('minlength');
+	      var maxlength = $(this).attr('maxlength');
+	
+	      if (required && !$(this).val()) {
+	        self.addError($(this), 'Required');
+	      } else if (minlength && $(this).val().length < minlength) {
+	        self.addError($(this), 'Min length: ' + minlength);
+	      } else if (maxlength && $(this).val().length > maxlength) {
+	        self.addError($(this), 'Max length: ' + maxlength);
+	      }
+	    });
+	
+	    callback(this.options.errors);
+	  }
+	
+	  /**
+	   * @param {Object} $input jQuery object
+	   * @param {string} error  error name for output
+	   */
+	
+	
+	  _createClass(FormValidate, [{
+	    key: "addError",
+	    value: function addError($input, error) {
+	      this.options.errors.push(error + ' (' + $input.attr('name') + ')');
+	      $input.closest(this.options.inputContainer).find(this.options.errorsSelector).show().text(error);
+	    }
+	  }]);
+	
+	  return FormValidate;
+	}();
+	
+	exports.default = FormValidate;
+
+/***/ },
 /* 30 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var BaseLayout = function (_Backbone$Marionette$) {
+	  _inherits(BaseLayout, _Backbone$Marionette$);
+	
+	  function BaseLayout() {
+	    _classCallCheck(this, BaseLayout);
+	
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(BaseLayout).call(this));
+	  }
+	
+	  _createClass(BaseLayout, [{
+	    key: "close",
+	    value: function close() {
+	      this.remove();
+	      this.unbind();
+	      if (this.onClose) {
+	        this.onClose();
+	      }
+	    }
+	  }]);
+	
+	  return BaseLayout;
+	}(Backbone.Marionette.ItemView);
+	
+	exports.default = BaseLayout;
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _layout = __webpack_require__(30);
+	
+	var _layout2 = _interopRequireDefault(_layout);
+	
+	var _about = __webpack_require__(32);
+	
+	var _about2 = _interopRequireDefault(_about);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var AboutLayout = function (_BaseLayout) {
+	  _inherits(AboutLayout, _BaseLayout);
+	
+	  function AboutLayout(options) {
+	    _classCallCheck(this, AboutLayout);
+	
+	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AboutLayout).call(this, options));
+	
+	    _this.template = _about2.default;
+	    return _this;
+	  }
+	
+	  return AboutLayout;
+	}(_layout2.default);
+	
+	exports.default = AboutLayout;
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Handlebars = __webpack_require__(10);
+	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+	    return "<h1>ABOUT</h1>\n<b>about</b> template.";
+	},"useData":true});
+
+/***/ },
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2243,11 +2387,11 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _layout = __webpack_require__(9);
+	var _layout = __webpack_require__(30);
 	
 	var _layout2 = _interopRequireDefault(_layout);
 	
-	var _home = __webpack_require__(31);
+	var _home = __webpack_require__(34);
 	
 	var _home2 = _interopRequireDefault(_home);
 	
@@ -2302,17 +2446,17 @@
 	exports.default = HomeLayout;
 
 /***/ },
-/* 31 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(11);
+	var Handlebars = __webpack_require__(10);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    return "<h1>HOME</h1>\n<b>home</b> template.";
 	},"useData":true});
 
 /***/ },
-/* 32 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2323,15 +2467,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _list = __webpack_require__(35);
+	var _list = __webpack_require__(36);
 	
 	var _list2 = _interopRequireDefault(_list);
 	
-	var _validate = __webpack_require__(48);
+	var _validate = __webpack_require__(29);
 	
 	var _validate2 = _interopRequireDefault(_validate);
 	
-	var _sticker = __webpack_require__(33);
+	var _sticker = __webpack_require__(37);
 	
 	var _sticker2 = _interopRequireDefault(_sticker);
 	
@@ -2354,21 +2498,31 @@
 	      //this.listenTo(this.channel.request('filterState'), 'change:filter', this.render, this);
 	      //this.listenTo( this.collection, 'add', this.renderBook );
 	      //this.listenTo( this.collection, 'reset', this.render );
+	      this.listenTo(this.childView, 'reset', this.render);
 	    }
 	  }]);
 	
 	  function ListView(options) {
 	    _classCallCheck(this, ListView);
 	
+	    //this.template = ListTemplate;
 	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(ListView).call(this, options));
 	
-	    _this.template = _list2.default; //'#template-todoListCompositeView';
 	    _this.childView = _sticker2.default;
 	    _this.childViewContainer = '#sticker-list';
 	    return _this;
 	  }
 	
 	  _createClass(ListView, [{
+	    key: 'template',
+	    value: function template() {
+	      var session = Backbone.Radio.channel('app').request('session');
+	
+	      return (0, _list2.default)({
+	        is_admin: session && session.user ? session.user.get('is_admin') : false
+	      });
+	    }
+	  }, {
 	    key: 'collectionEvents',
 	    value: function collectionEvents() {
 	      return {
@@ -2377,27 +2531,58 @@
 	      };
 	    }
 	  }, {
+	    key: 'childEvents',
+	    value: function childEvents() {
+	      return {
+	        'sticker:edit': this.onStickerEdit,
+	        'sticker:cancel_edit': this.onCancelEdit
+	      };
+	    }
+	  }, {
+	    key: 'onStickerEdit',
+	    value: function onStickerEdit(view) {
+	
+	      this.ui.form_title.text('Edit selected sticker:');
+	      this.ui.form_button.text('Edit sticker');
+	      this.ui.form.find('#id').val(view.model.get('id'));
+	      this.ui.form.find('.cancel').show();
+	
+	      this.ui.form.find('#title').val(view.model.get('title'));
+	      this.ui.form.find('#description').val(view.model.get('description'));
+	
+	      $(this.childViewContainer).parent().find('div').removeClass('editing');
+	      view.$el.addClass('editing');
+	    }
+	  }, {
+	    key: 'onCancelEdit',
+	    value: function onCancelEdit(view) {
+	
+	      this.ui.form.find('input').val('');
+	      this.ui.form_title.text('Add new sticker:');
+	      this.ui.form_button.text('Add sticker');
+	      this.ui.form.find('#id').val('');
+	      this.ui.form.find('.cancel').hide();
+	
+	      $(this.childViewContainer).parent().find('div').removeClass('editing');
+	    }
+	  }, {
 	    key: 'ui',
 	    value: function ui() {
 	      return {
-	        //toggle: '#toggle-all',
-	        form: '#new-sticker'
+	        form: '#new-sticker',
+	        form_title: '#new-sticker h2',
+	        form_button: 'button.btn',
+	        cancel_edit: '.cancel'
 	      };
 	    }
 	  }, {
 	    key: 'events',
 	    value: function events() {
 	      return {
-	        //'click @ui.toggle': 'onToggleAllClick',
-	        'submit @ui.form': 'onSubmit'
+	        //'submit @ui.form': 'onSubmit',
+	        'click @ui.form_button': 'onSubmit',
+	        'click @ui.cancel_edit': 'onCancelEdit'
 	      };
-	    }
-	  }, {
-	    key: 'filter',
-	    value: function filter(child) {
-	      //var filteredOn = filterChannel.request('filterState').get('filter');
-	      //return child.matchesFilter(filteredOn);
-	      return 1;
 	    }
 	  }, {
 	    key: 'onSubmit',
@@ -2405,6 +2590,7 @@
 	      var _this2 = this;
 	
 	      event.preventDefault();
+	
 	      var data = {};
 	
 	      var validator = new _validate2.default('#new-sticker', function (errors) {
@@ -2412,16 +2598,29 @@
 	
 	          var $form = _this2.ui.form;
 	          $form.find('input').each(function (i, el) {
-	            if ($(el).val() != '') {
+	            if ($(el).val() !== '') {
 	
 	              data[el.id] = $(el).val();
 	              $(el).val('');
 	            }
 	          });
 	
-	          data['user_id'] = Backbone.Radio.channel('app').request('session').user.get('id');
-	          data['like'] = false;
-	          _this2.collection.create(data);
+	          data.like = false;
+	
+	          if (data.id) {
+	            var item = _this2.collection.get(data.id);
+	            item.save(data);
+	          } else {
+	            data.user_id = Backbone.Radio.channel('app').request('session').user.get('id');
+	
+	            _this2.collection.create(data, {
+	              wait: true,
+	              success: function success(model, response) {
+	                return _this2.onCancelEdit();
+	              },
+	              error: function error(model, _error) {}
+	            });
+	          }
 	        }
 	      });
 	    }
@@ -2433,7 +2632,26 @@
 	exports.default = ListView;
 
 /***/ },
-/* 33 */
+/* 36 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Handlebars = __webpack_require__(10);
+	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
+	module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
+	    return "<form id=\"new-sticker\" action=\"#\">\n\n  <input id=\"id\" name=\"id\" type=\"hidden\" value=\"\" />\n\n  <h2>Add new sticker:</h2>\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" type=\"text\" id=\"title\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"title\" data-content=\"Title\">\n          <span class=\"input__label-content input__label-content--isao\">Title</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span> \n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" type=\"text\" id=\"description\" minlength=\"4\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"description\" data-content=\"Description\">\n          <span class=\"input__label-content input__label-content--isao\">Description</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <button type=\"submit\" class=\"btn\" id=\"add\">Add sticker</button> <a style=\"display:none\" class=\"btn cancel\">Candel</a>\n</form>\n<div class=\"break\"></div>\n";
+	},"3":function(container,depth0,helpers,partials,data) {
+	    return "<span>To edit item double click the sticker's title.</span>";
+	},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
+	    var stack1, alias1=depth0 != null ? depth0 : {};
+	
+	  return "<h1>STICKERS</h1>\n\n\n"
+	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_admin : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+	    + "\n<h2>Sticker list:</h2>\n<ul class=\"cleared\" id=\"sticker-list\"></ul>\n"
+	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_admin : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
+	},"useData":true});
+
+/***/ },
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2444,7 +2662,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _sticker = __webpack_require__(34);
+	var _sticker = __webpack_require__(38);
 	
 	var _sticker2 = _interopRequireDefault(_sticker);
 	
@@ -2465,39 +2683,30 @@
 	    get: function get() {
 	      return 'div';
 	    }
-	
-	    /*template(serialized_model) {
-	      var title = serialized_model.title;
-	      return _.template(StikerTemplate)({
-	          title : title,
-	          //some_custom_attribute : some_custom_key
-	      });
-	    }*/
-	
-	  }, {
-	    key: 'className',
-	    get: function get() {
-	      return 'active'; // + (this.model.get('liked') ? 'liked' : 'active');
-	    }
 	  }]);
 	
 	  function StickerView(options) {
 	    _classCallCheck(this, StickerView);
 	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(StickerView).call(this, options));
-	
-	    _this.template = _sticker2.default; //_.template(StikerTemplate);
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(StickerView).call(this, options));
 	  }
 	
 	  _createClass(StickerView, [{
+	    key: 'template',
+	    value: function template(serialized_model) {
+	      var session = Backbone.Radio.channel('app').request('session');
+	
+	      return (0, _sticker2.default)(_.extend(serialized_model, {
+	        is_admin: session && session.user ? session.user.get('is_admin') : false
+	      }));
+	    }
+	  }, {
 	    key: 'ui',
 	    value: function ui() {
 	      return {
 	        edit: '.edit',
 	        destroy: '.destroy',
-	        label: 'label',
-	        toggle: '.toggle',
+	        label: '.label',
 	        like: '.like'
 	      };
 	    }
@@ -2507,9 +2716,7 @@
 	      return {
 	        'click @ui.destroy': 'deleteModel',
 	        'dblclick @ui.label': 'onEditClick',
-	        'keydown @ui.edit': 'onEditKeypress',
 	        'focusout @ui.edit': 'onEditFocusout',
-	        'click @ui.toggle': 'toggle',
 	        'click @ui.like': 'like'
 	      };
 	    }
@@ -2529,9 +2736,17 @@
 	  }, {
 	    key: 'deleteModel',
 	    value: function deleteModel(event) {
+	      var _this2 = this;
+	
 	      event.preventDefault();
-	      this.model.destroy();
-	      this.remove();
+	
+	      this.model.destroy({
+	        wait: true,
+	        success: function success(model, response) {
+	          return _this2.remove();
+	        },
+	        error: function error(model, _error) {}
+	      });
 	    }
 	  }, {
 	    key: 'toggle',
@@ -2542,36 +2757,36 @@
 	  }, {
 	    key: 'onEditClick',
 	    value: function onEditClick() {
-	      this.$el.addClass('editing');
-	      this.ui.edit.focus();
-	      this.ui.edit.val(this.ui.edit.val());
+	      if (this.$el.hasClass('editing')) {
+	        this.trigger("sticker:cancel_edit");
+	      } else {
+	        this.trigger("sticker:edit");
+	      }
 	    }
 	  }, {
 	    key: 'onEditFocusout',
 	    value: function onEditFocusout() {
-	      var todoText = this.ui.edit.val().trim();
+	      /*var todoText = this.ui.edit.val().trim();
 	      if (todoText) {
 	        this.model.set('title', todoText).save();
 	        this.$el.removeClass('editing');
 	      } else {
 	        this.destroy();
-	      }
+	      }*/
 	    }
 	  }, {
 	    key: 'onEditKeypress',
 	    value: function onEditKeypress(e) {
-	      var ENTER_KEY = 13;
+	      /*var ENTER_KEY = 13;
 	      var ESC_KEY = 27;
-	
-	      if (e.which === ENTER_KEY) {
+	       if (e.which === ENTER_KEY) {
 	        this.onEditFocusout();
 	        return;
 	      }
-	
-	      if (e.which === ESC_KEY) {
+	       if (e.which === ESC_KEY) {
 	        this.ui.edit.val(this.model.get('title'));
 	        this.$el.removeClass('editing');
-	      }
+	      }*/
 	    }
 	  }]);
 	
@@ -2581,45 +2796,39 @@
 	exports.default = StickerView;
 
 /***/ },
-/* 34 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(11);
+	var Handlebars = __webpack_require__(10);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
-	    return " liked";
+	    return "<a href=\"#\" class=\"destroy\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i></a>";
 	},"3":function(container,depth0,helpers,partials,data) {
+	    return " liked";
+	},"5":function(container,depth0,helpers,partials,data) {
 	    return "-o";
 	},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 	
 	  return "<div class=\"stickers__item\" data-id=\""
 	    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
-	    + "\">\n  <div class=\"stickers__item__close\">\n    <a href=\"#\" class=\"destroy\"><i class=\"fa fa-times\" aria-hidden=\"true\"></i></a>\n  </div>  \n  <div class=\"stickers__item__title\">"
+	    + "\">\n  <div class=\"stickers__item__close\">\n    "
+	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_admin : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+	    + "\n  </div>  \n  <div class=\"stickers__item__title label\">"
 	    + alias4(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"title","hash":{},"data":data}) : helper)))
 	    + "</div>\n    <div class=\"stickers__item__description\">"
 	    + alias4(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"description","hash":{},"data":data}) : helper)))
 	    + "</div>\n    <div class=\"stickers__item__like\">\n    <a href=\"#\" class=\"like"
-	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.liked : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.liked : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
 	    + "\">\n      <i class=\"fa fa-heart"
-	    + ((stack1 = helpers.unless.call(alias1,(depth0 != null ? depth0.liked : depth0),{"name":"unless","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+	    + ((stack1 = helpers.unless.call(alias1,(depth0 != null ? depth0.liked : depth0),{"name":"unless","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
 	    + "\" aria-hidden=\"true\"></i> <span>"
 	    + alias4(((helper = (helper = helpers.likes || (depth0 != null ? depth0.likes : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"likes","hash":{},"data":data}) : helper)))
 	    + "</span>\n    </a>\n </div>\n</div>";
 	},"useData":true});
 
 /***/ },
-/* 35 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Handlebars = __webpack_require__(11);
-	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
-	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-	    return "<h1>STICKERS</h1>\n\n<form id=\"new-sticker\" action=\"#\">\n  <h2>Add new sticker:</h2>\n  <div class=\"cleared\">\n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" type=\"text\" id=\"title\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"title\" data-content=\"Title\">\n          <span class=\"input__label-content input__label-content--isao\">Title</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span> \n    <span class=\"control-group\">\n      <span class=\"input input--isao\">\n        <input class=\"validate input__field input__field--isao\" type=\"text\" id=\"description\" required=\"\" />\n        <label class=\"input__label input__label--isao\" for=\"description\" data-content=\"Description\">\n          <span class=\"input__label-content input__label-content--isao\">Description</span>\n        </label>\n        <p class=\"help-block\"></p>\n      </span>\n    </span>\n  </div>\n  <button type=\"submit\" class=\"btn\" id=\"add\">Add sticker</button>\n</form>\n<div class=\"break\"></div>\n<h2>Sticker list:</h2>\n<ul class=\"cleared\" id=\"sticker-list\"></ul>";
-	},"useData":true});
-
-/***/ },
-/* 36 */
+/* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2630,7 +2839,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _root = __webpack_require__(37);
+	var _root = __webpack_require__(40);
 	
 	var _root2 = _interopRequireDefault(_root);
 	
@@ -2664,7 +2873,7 @@
 	exports.default = Application;
 
 /***/ },
-/* 37 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2675,15 +2884,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _layout = __webpack_require__(9);
+	var _layout = __webpack_require__(30);
 	
 	var _layout2 = _interopRequireDefault(_layout);
 	
-	var _header = __webpack_require__(38);
+	var _header = __webpack_require__(41);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
-	var _footer = __webpack_require__(40);
+	var _footer = __webpack_require__(43);
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
@@ -2734,7 +2943,7 @@
 	exports.default = AppLayout;
 
 /***/ },
-/* 38 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2745,7 +2954,7 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _header = __webpack_require__(39);
+	var _header = __webpack_require__(42);
 	
 	var _header2 = _interopRequireDefault(_header);
 	
@@ -2824,10 +3033,10 @@
 	exports.default = HeaderLayout;
 
 /***/ },
-/* 39 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(11);
+	var Handlebars = __webpack_require__(10);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"1":function(container,depth0,helpers,partials,data) {
 	    var helper;
@@ -2846,7 +3055,7 @@
 	},"useData":true});
 
 /***/ },
-/* 40 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2855,7 +3064,7 @@
 	  value: true
 	});
 	
-	var _footer = __webpack_require__(41);
+	var _footer = __webpack_require__(44);
 	
 	var _footer2 = _interopRequireDefault(_footer);
 	
@@ -2885,155 +3094,20 @@
 	exports.default = FooterLayout;
 
 /***/ },
-/* 41 */
+/* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Handlebars = __webpack_require__(11);
+	var Handlebars = __webpack_require__(10);
 	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
 	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    return "<div class=\"social\">\n  <a href=\"https://github.com/exportdefault/backbone-stickers\" class=\"black\" target=\"_blank\"><i class=\"fa fa-github-alt\"></i> <u>Star</u></a>\n  <span class=\"small\" id=\"github-counter\"></span>\n</div>\n<div class=\"copyright\">\n  Powered by <a href=\"#\">Express</a> &amp; <a href=\"#\">Backbone</a>.<a href=\"#\">MarionetteJS</a>  | <span class=\"js-now-year\">2016</span>\n</div>";
 	},"useData":true});
 
 /***/ },
-/* 42 */
+/* 45 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
-
-/***/ },
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _layout = __webpack_require__(9);
-	
-	var _layout2 = _interopRequireDefault(_layout);
-	
-	var _about = __webpack_require__(47);
-	
-	var _about2 = _interopRequireDefault(_about);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AboutLayout = function (_BaseLayout) {
-	  _inherits(AboutLayout, _BaseLayout);
-	
-	  function AboutLayout(options) {
-	    _classCallCheck(this, AboutLayout);
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(AboutLayout).call(this, options));
-	
-	    _this.template = _about2.default;
-	    return _this;
-	  }
-	
-	  return AboutLayout;
-	}(_layout2.default);
-	
-	exports.default = AboutLayout;
-
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Handlebars = __webpack_require__(11);
-	function __default(obj) { return obj && (obj.__esModule ? obj["default"] : obj); }
-	module.exports = (Handlebars["default"] || Handlebars).template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
-	    return "<h1>ABOUT</h1>\n<b>about</b> template.";
-	},"useData":true});
-
-/***/ },
-/* 48 */
-/***/ function(module, exports) {
-
-	"use strict";
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	/* global $ */
-	
-	var FormValidate = function () {
-	  function FormValidate(form, options, callback) {
-	    _classCallCheck(this, FormValidate);
-	
-	    self = this;
-	
-	    if (typeof options === 'function') {
-	      callback = options;
-	      options = {};
-	    } else if (options instanceof []) {
-	      options = { fields: options };
-	    }
-	
-	    // use bootstrap selectors
-	    this.defaults = {
-	      errorsSelector: ".help-block",
-	      inputContainer: ".control-group",
-	      errors: [],
-	      fields: []
-	    };
-	
-	    this.options = $.extend({}, this.defaults, options);
-	
-	    this.$form = $(form);
-	
-	    if (!this.$form.length) return;
-	
-	    $(this.$form).find(self.options.errorsSelector).hide().text('');
-	
-	    // @todo add field from options
-	    this.options.$fields = this.$form.find('input[type=text], input[type=password]');
-	
-	    this.options.$fields.each(function (i, $input) {
-	
-	      var required = $(this).attr('required');
-	      var minlength = $(this).attr('minlength');
-	      var maxlength = $(this).attr('maxlength');
-	
-	      if (required && !$(this).val()) {
-	        self.addError($(this), 'Required');
-	      } else if (minlength && $(this).val().length < minlength) {
-	        self.addError($(this), 'Min length: ' + minlength);
-	      } else if (maxlength && $(this).val().length > maxlength) {
-	        self.addError($(this), 'Max length: ' + maxlength);
-	      }
-	    });
-	
-	    callback(this.options.errors);
-	  }
-	
-	  _createClass(FormValidate, [{
-	    key: "addError",
-	    value: function addError($input, error) {
-	      this.options.errors.push(error + ' (' + $input.attr('name') + ')');
-	      $input.closest(this.options.inputContainer).find(this.options.errorsSelector).show().text(error);
-	    }
-	  }]);
-	
-	  return FormValidate;
-	}();
-	
-	exports.default = FormValidate;
 
 /***/ }
 /******/ ]);

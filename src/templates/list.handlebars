@@ -1,6 +1,11 @@
 <h1>STICKERS</h1>
 
+
+{{#if is_admin }}
 <form id="new-sticker" action="#">
+
+  <input id="id" name="id" type="hidden" value="" />
+
   <h2>Add new sticker:</h2>
   <div class="cleared">
     <span class="control-group">
@@ -14,7 +19,7 @@
     </span> 
     <span class="control-group">
       <span class="input input--isao">
-        <input class="validate input__field input__field--isao" type="text" id="description" required="" />
+        <input class="validate input__field input__field--isao" type="text" id="description" minlength="4" required="" />
         <label class="input__label input__label--isao" for="description" data-content="Description">
           <span class="input__label-content input__label-content--isao">Description</span>
         </label>
@@ -22,8 +27,11 @@
       </span>
     </span>
   </div>
-  <button type="submit" class="btn" id="add">Add sticker</button>
+  <button type="submit" class="btn" id="add">Add sticker</button> <a style="display:none" class="btn cancel">Candel</a>
 </form>
 <div class="break"></div>
+{{/if}}
+
 <h2>Sticker list:</h2>
 <ul class="cleared" id="sticker-list"></ul>
+{{#if is_admin }}<span>To edit item double click the sticker's title.</span>{{/if}}

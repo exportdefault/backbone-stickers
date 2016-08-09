@@ -1,4 +1,4 @@
-class UserModel extends Backbone.Model {
+export default class UserModel extends Backbone.Model {
   constructor() {
     super();
 
@@ -8,12 +8,12 @@ class UserModel extends Backbone.Model {
   // Define default attributes.
   defaults() {
     return {
-        id: 0,
-        username: '',
-        name: '',
-        email: '',
-        role: UserModel.ROLE_GUEST,
-      };
+      id: 0,
+      username: '',
+      name: '',
+      email: '',
+      is_admin: false
+    };
   }
 
   parse(response) {
@@ -22,9 +22,3 @@ class UserModel extends Backbone.Model {
   }
 
 }
-
-UserModel.ROLE_GUEST  = 0;
-UserModel.ROLE_USER   = 1;
-UserModel.ROLE_ADMIN  = 2;
-
-export default UserModel;

@@ -61,3 +61,11 @@
 .liked {
   font-weight: bold;
 }
+
+.stickers__item__title.label {
+  cursor: pointer;
+}
+
+.editing .stickers__item {
+  background-color: #f16b84;
+}

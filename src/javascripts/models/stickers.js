@@ -24,12 +24,11 @@ class Sticker extends Model {
 
    let user_id = Backbone.Radio.channel('app').request('session').user.get('id');
 
-   console.log(JSON.stringify(response));
-   console.log(user_id);
+   // console.log(JSON.stringify(response));
+   // console.log(user_id);
 
    response.liked = !!(_.find(response.likes, item => item.user_id == user_id ));
    response.likes = response.likes.length;
-
 
    return response;
   }

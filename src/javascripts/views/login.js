@@ -64,7 +64,7 @@ export default class LoginLayout extends BaseLayout {
 
   onLoginAttempt(event) {
     if(event) event.preventDefault();
-
+    
     var validator = new FormValidate('#login-form', (errors) => {
       if (!errors.length) {
 

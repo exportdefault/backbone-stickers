@@ -12,8 +12,7 @@ export default class SessionModel extends Backbone.Model {
   defaults() {
     return {
       logged_in: false,
-      user_id: '',
-      is_admin: false
+      user_id: ''
     };
   }
 

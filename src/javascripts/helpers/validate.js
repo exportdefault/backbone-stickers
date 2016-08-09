@@ -1,6 +1,17 @@
 /* global $ */
 
+/**
+ * @class FormValidate
+ * Simple form validation
+ */
 export default class FormValidate {
+
+  /**
+   * [constructor description]
+   * @param {string} form selector
+   * @param {Object} options
+   * @param {Function} callback function with error
+   */
   constructor(form, options, callback) {
 
     self = this;
@@ -53,6 +64,10 @@ export default class FormValidate {
     callback(this.options.errors);
   }
 
+  /**
+   * @param {Object} $input jQuery object
+   * @param {string} error  error name for output
+   */
   addError($input, error) {
     this.options.errors.push(error + ' (' + $input.attr('name') + ')');
     $input

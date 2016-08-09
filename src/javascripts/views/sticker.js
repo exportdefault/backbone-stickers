@@ -1,4 +1,4 @@
-import template from './../../templates/sticker.handlebars'; 
+import StikerTemplate from './../../templates/sticker.handlebars'; 
 
 // StikerView class
 export default class StickerView extends Backbone.Marionette.ItemView {
@@ -7,30 +7,23 @@ export default class StickerView extends Backbone.Marionette.ItemView {
     return 'div';
   } 
 
-  /*template(serialized_model) {
-    var title = serialized_model.title;
-    return _.template(StikerTemplate)({
-        title : title,
-        //some_custom_attribute : some_custom_key
-    });
-  }*/
-
-  get className() {
-    return 'active' ;// + (this.model.get('liked') ? 'liked' : 'active');
-  }
-
   constructor(options) {
     super(options);
+  }
 
-    this.template = template; //_.template(StikerTemplate);
+  template(serialized_model) {
+    const session = Backbone.Radio.channel('app').request('session');
+
+    return StikerTemplate(_.extend(serialized_model, {
+        is_admin : (session && session.user) ? session.user.get('is_admin') : false
+    }));
   }
 
   ui() {
     return {
       edit: '.edit',
       destroy: '.destroy',
-      label: 'label',
-      toggle: '.toggle',
+      label: '.label',
       like: '.like'
     };
   }
@@ -39,9 +32,7 @@ export default class StickerView extends Backbone.Marionette.ItemView {
     return {
       'click @ui.destroy': 'deleteModel',
       'dblclick @ui.label': 'onEditClick',
-      'keydown @ui.edit': 'onEditKeypress',
       'focusout @ui.edit': 'onEditFocusout',
-      'click @ui.toggle': 'toggle',
       'click @ui.like': 'like'
     };
   }
@@ -58,9 +49,13 @@ export default class StickerView extends Backbone.Marionette.ItemView {
   }
 
   deleteModel(event) {
-    event.preventDefault();    
-    this.model.destroy();
-    this.remove();
+    event.preventDefault();
+
+    this.model.destroy({
+      wait: true,
+      success: (model, response) => this.remove(),
+      error: (model, error) => {}
+    });
   }
 
   toggle(event) {
@@ -69,23 +64,25 @@ export default class StickerView extends Backbone.Marionette.ItemView {
   }
 
   onEditClick() {
-    this.$el.addClass('editing');
-    this.ui.edit.focus();
-    this.ui.edit.val(this.ui.edit.val());
+    if (this.$el.hasClass('editing')) {
+      this.trigger("sticker:cancel_edit");
+    } else {
+      this.trigger("sticker:edit");
+    }
   }
 
   onEditFocusout() {
-    var todoText = this.ui.edit.val().trim();
+    /*var todoText = this.ui.edit.val().trim();
     if (todoText) {
       this.model.set('title', todoText).save();
       this.$el.removeClass('editing');
     } else {
       this.destroy();
-    }
+    }*/
   }
 
   onEditKeypress(e) {
-    var ENTER_KEY = 13;
+    /*var ENTER_KEY = 13;
     var ESC_KEY = 27;
 
     if (e.which === ENTER_KEY) {
@@ -96,8 +93,6 @@ export default class StickerView extends Backbone.Marionette.ItemView {
     if (e.which === ESC_KEY) {
       this.ui.edit.val(this.model.get('title'));
       this.$el.removeClass('editing');
-    }
+    }*/
   }
-
-
 }
