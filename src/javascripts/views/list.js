@@ -7,9 +7,6 @@ import StickerView from './sticker';
 export default class ListView extends Backbone.Marionette.CompositeView {
 
   initialize() {
-    //this.listenTo(this.channel.request('filterState'), 'change:filter', this.render, this);
-    //this.listenTo( this.collection, 'add', this.renderBook );
-    //this.listenTo( this.collection, 'reset', this.render );
     this.listenTo( this.childView, 'reset', this.render );
   }
 
@@ -43,28 +40,25 @@ export default class ListView extends Backbone.Marionette.CompositeView {
     }
   }
 
+  // @todo refactoring
   onStickerEdit(view) {
-
     this.ui.form_title.text('Edit selected sticker:');
     this.ui.form_button.text('Edit sticker');
     this.ui.form.find('#id').val(view.model.get('id'));
     this.ui.form.find('.cancel').show();
-
     this.ui.form.find('#title').val(view.model.get('title'));
     this.ui.form.find('#description').val(view.model.get('description'));
-
     $(this.childViewContainer).parent().find('div').removeClass('editing');
     view.$el.addClass('editing'); 
   }
 
+  // @todo refactoring
   onCancelEdit(view) {
-
     this.ui.form.find('input').val('');
     this.ui.form_title.text('Add new sticker:');
     this.ui.form_button.text('Add sticker');
     this.ui.form.find('#id').val('');
     this.ui.form.find('.cancel').hide();
-
     $(this.childViewContainer).parent().find('div').removeClass('editing');
   }
 
@@ -79,7 +73,6 @@ export default class ListView extends Backbone.Marionette.CompositeView {
 
   events() {
     return {
-      //'submit @ui.form': 'onSubmit',
       'click @ui.form_button': 'onSubmit',
       'click @ui.cancel_edit': 'onCancelEdit'
     };
@@ -87,7 +80,6 @@ export default class ListView extends Backbone.Marionette.CompositeView {
 
   onSubmit(event) {
     event.preventDefault();
-
     var data = {};
 
     var validator = new FormValidate('#new-sticker', (errors) => {

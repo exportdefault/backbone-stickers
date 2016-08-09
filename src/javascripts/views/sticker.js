@@ -71,6 +71,7 @@ export default class StickerView extends Backbone.Marionette.ItemView {
     }
   }
 
+  // @todo delete
   onEditFocusout() {
     /*var todoText = this.ui.edit.val().trim();
     if (todoText) {
@@ -80,7 +81,8 @@ export default class StickerView extends Backbone.Marionette.ItemView {
       this.destroy();
     }*/
   }
-
+  
+  // @todo delete
   onEditKeypress(e) {
     /*var ENTER_KEY = 13;
     var ESC_KEY = 27;

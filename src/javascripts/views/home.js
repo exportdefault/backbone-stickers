@@ -5,7 +5,6 @@ export default class HomeLayout extends BaseLayout {
 
   constructor(options) {
     super(options);
-    //this.template = template;
   }
 
   template(model) {

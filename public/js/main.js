@@ -873,12 +873,7 @@
 	  function LoginLayout(options) {
 	    _classCallCheck(this, LoginLayout);
 	
-	    //this.template = template;
-	
-	    var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(LoginLayout).call(this, options));
-	
-	    _this.app = Backbone.Radio.channel('app');
-	    return _this;
+	    return _possibleConstructorReturn(this, Object.getPrototypeOf(LoginLayout).call(this, options));
 	  }
 	
 	  _createClass(LoginLayout, [{
@@ -896,17 +891,6 @@
 	        'keyup #signup-password-confirm-input': 'onConfirmPasswordKeyup'
 	      };
 	    }
-	  }, {
-	    key: 'initialize',
-	    value: function initialize() {
-	      //this.listenTo(this.app.request('session'), 'change:logged_in', this.render);
-	
-	    }
-	  }, {
-	    key: 'onClose',
-	    value: function onClose() {}
-	    //this.stopListening();
-	
 	
 	    // Allow enter press to trigger login
 	
@@ -981,7 +965,6 @@
 	            name: _this3.$("#signup-name-input").val()
 	          }, {
 	            success: function success(mod, res) {
-	              console.log('success');
 	              Backbone.history.navigate('', { trigger: true });
 	            },
 	            error: function error(err) {
@@ -2410,7 +2393,6 @@
 	    _classCallCheck(this, HomeLayout);
 	
 	    return _possibleConstructorReturn(this, Object.getPrototypeOf(HomeLayout).call(this, options));
-	    //this.template = template;
 	  }
 	
 	  _createClass(HomeLayout, [{
@@ -2495,9 +2477,6 @@
 	  _createClass(ListView, [{
 	    key: 'initialize',
 	    value: function initialize() {
-	      //this.listenTo(this.channel.request('filterState'), 'change:filter', this.render, this);
-	      //this.listenTo( this.collection, 'add', this.renderBook );
-	      //this.listenTo( this.collection, 'reset', this.render );
 	      this.listenTo(this.childView, 'reset', this.render);
 	    }
 	  }]);
@@ -2538,31 +2517,32 @@
 	        'sticker:cancel_edit': this.onCancelEdit
 	      };
 	    }
+	
+	    // @todo refactoring
+	
 	  }, {
 	    key: 'onStickerEdit',
 	    value: function onStickerEdit(view) {
-	
 	      this.ui.form_title.text('Edit selected sticker:');
 	      this.ui.form_button.text('Edit sticker');
 	      this.ui.form.find('#id').val(view.model.get('id'));
 	      this.ui.form.find('.cancel').show();
-	
 	      this.ui.form.find('#title').val(view.model.get('title'));
 	      this.ui.form.find('#description').val(view.model.get('description'));
-	
 	      $(this.childViewContainer).parent().find('div').removeClass('editing');
 	      view.$el.addClass('editing');
 	    }
+	
+	    // @todo refactoring
+	
 	  }, {
 	    key: 'onCancelEdit',
 	    value: function onCancelEdit(view) {
-	
 	      this.ui.form.find('input').val('');
 	      this.ui.form_title.text('Add new sticker:');
 	      this.ui.form_button.text('Add sticker');
 	      this.ui.form.find('#id').val('');
 	      this.ui.form.find('.cancel').hide();
-	
 	      $(this.childViewContainer).parent().find('div').removeClass('editing');
 	    }
 	  }, {
@@ -2579,7 +2559,6 @@
 	    key: 'events',
 	    value: function events() {
 	      return {
-	        //'submit @ui.form': 'onSubmit',
 	        'click @ui.form_button': 'onSubmit',
 	        'click @ui.cancel_edit': 'onCancelEdit'
 	      };
@@ -2590,7 +2569,6 @@
 	      var _this2 = this;
 	
 	      event.preventDefault();
-	
 	      var data = {};
 	
 	      var validator = new _validate2.default('#new-sticker', function (errors) {
@@ -2644,7 +2622,7 @@
 	},"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
 	    var stack1, alias1=depth0 != null ? depth0 : {};
 	
-	  return "<h1>STICKERS</h1>\n\n\n"
+	  return "<h1>STICKERS</h1>\n\n"
 	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_admin : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
 	    + "\n<h2>Sticker list:</h2>\n<ul class=\"cleared\" id=\"sticker-list\"></ul>\n"
 	    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_admin : depth0),{"name":"if","hash":{},"fn":container.program(3, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
@@ -2763,17 +2741,23 @@
 	        this.trigger("sticker:edit");
 	      }
 	    }
+	
+	    // @todo delete
+	
 	  }, {
 	    key: 'onEditFocusout',
-	    value: function onEditFocusout() {
-	      /*var todoText = this.ui.edit.val().trim();
-	      if (todoText) {
-	        this.model.set('title', todoText).save();
-	        this.$el.removeClass('editing');
-	      } else {
-	        this.destroy();
-	      }*/
-	    }
+	    value: function onEditFocusout() {}
+	    /*var todoText = this.ui.edit.val().trim();
+	    if (todoText) {
+	      this.model.set('title', todoText).save();
+	      this.$el.removeClass('editing');
+	    } else {
+	      this.destroy();
+	    }*/
+	
+	
+	    // @todo delete
+	
 	  }, {
 	    key: 'onEditKeypress',
 	    value: function onEditKeypress(e) {
@@ -2903,8 +2887,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	//var filterChannel = Backbone.Radio.channel('filter');
 	
 	var AppLayout = function (_Backbone$Marionette$) {
 	  _inherits(AppLayout, _Backbone$Marionette$);

@@ -6,9 +6,6 @@ export default class LoginLayout extends BaseLayout {
 
   constructor(options) {
     super(options);
-    //this.template = template;
-
-    this.app = Backbone.Radio.channel('app');
   }
 
   template(model) {
@@ -23,16 +20,6 @@ export default class LoginLayout extends BaseLayout {
       'keyup #signup-password-confirm-input'  : 'onConfirmPasswordKeyup'
     }
   }
-
-  initialize() {   
-    //this.listenTo(this.app.request('session'), 'change:logged_in', this.render);
-
-  }
-
-  onClose() {
-    //this.stopListening();
-  }
-
 
   // Allow enter press to trigger login
   onPasswordKeyup(event) {
@@ -95,7 +82,6 @@ export default class LoginLayout extends BaseLayout {
             name: this.$("#signup-name-input").val()
           }, {
             success: (mod, res) => {
-              console.log('success');
               Backbone.history.navigate('', { trigger: true });
             },
             error: (err) => {
