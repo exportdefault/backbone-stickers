@@ -5,11 +5,10 @@ const methodOverride  = require('method-override'),
   errorHandler    = require('error-handler'),
   cookieParser    = require('cookie-parser'),
   bodyParser      = require('body-parser'),
-  _               = require('underscore'),
   mongoose        = require('mongoose'),
   config          = require('./config'),
+  bcrypt          = require('bcryptjs'),
   express         = require('express'),
-  bcrypt          = require('bcrypt'),
   path            = require('path'),
   csrf            = require('csurf'),
   fs              = require('fs');
@@ -17,9 +16,6 @@ const methodOverride  = require('method-override'),
 var port = process.env.PORT || config.port;
 var app = express();
 var application_root  = __dirname;
-
-
-
 
 app.enable('trust proxy'); // Allow node to be run with proxy passing
 
